@@ -3,48 +3,110 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Felipe Castellanos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
+  <title>Felipe Castellanos | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
-      margin: 2em;
-      max-width: 800px;
-      line-height: 1.6;
-    }
-    h1, h2 {
+      margin: 0;
+      padding: 2rem;
+      background-color: #f9f9f9;
       color: #2c3e50;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
     }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .location {
+      font-size: 1rem;
+      color: #777;
+      margin-top: 0.25rem;
+    }
+
+    p.intro {
+      font-size: 1.1rem;
+      color: #555;
+      margin-top: 1rem;
+    }
+
+    h2 {
+      margin-top: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    h3 {
+      margin-top: 1.5rem;
+      color: #34495e;
+    }
+
     ul {
-      list-style-type: none;
-      padding: 0;
+      list-style: none;
+      padding-left: 0;
     }
-    li a {
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    a {
       color: #007acc;
       text-decoration: none;
+      font-weight: 500;
     }
-    li a:hover {
+
+    a:hover {
       text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 4rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #999;
     }
   </style>
 </head>
 <body>
 
-  <h1>Felipe Castellanos</h1>
+  <header>
+    <h1>Felipe Castellanos</h1>
+    <p class="location">Bogotá, Colombia · Davidson College '27</p>
+    <p class="intro">Welcome to my portfolio. Here you’ll find a curated selection of my programming projects from coursework and independent work.</p>
+  </header>
 
-  <p>This website is a portfolio of my programming work. It includes my coursework in Data Visualization (CSC 362) and Software 
-    Design (CSC 312).</p>
+  <section>
+    <h2>Coursework</h2>
 
-  <h2>Coursework</h2>
-  <h3>CSC 362 Data Visualization</h3>
-  <ul>
-    <li><a href="trails-skeleton/index.html">Lab 7 – Linked Bar Chart and Scatterplot</a></li>
-  </ul>
+    <h3>CSC 362: Data Visualization</h3>
+    <ul>
+      <li><a href="trails-skeleton/index.html">Lab 7 – Linked Bar Chart and Scatterplot</a></li>
+    </ul>
 
-  <h3>CSC 312 Software Design</h3>
-  <ul>
-    <li><a href="https://github.com/N-Pacis/Student-Hub/tree/main">Student Hub - Davidson Student Platform</a></li>
-  </ul>
+    <h3>CSC 312: Software Design</h3>
+    <ul>
+      <li><a href="https://github.com/N-Pacis/Student-Hub/tree/main" target="_blank">Student Hub – Davidson Student Platform</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    &copy; 2025 Felipe Castellanos. All rights reserved.
+  </footer>
 
 </body>
 </html>
