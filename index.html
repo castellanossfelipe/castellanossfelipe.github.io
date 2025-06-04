@@ -27,7 +27,8 @@
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.75rem;
+      font-weight: 700;
       margin-bottom: 0.25rem;
     }
 
@@ -38,21 +39,23 @@
     }
 
     p.intro {
-      font-size: 1.1rem;
-      color: #555;
+      font-size: 1.2rem;
+      color: #444;
       margin-top: 1rem;
+      line-height: 1.6;
     }
 
     h2 {
-      margin-top: 2rem;
+      margin-top: 2.5rem;
       border-bottom: 2px solid #ddd;
       padding-bottom: 0.5rem;
-      font-size: 1.5rem;
+      font-size: 1.75rem;
     }
 
     h3 {
-      margin-top: 1.5rem;
+      margin-top: 1.75rem;
       color: #34495e;
+      font-size: 1.25rem;
     }
 
     ul {
@@ -61,7 +64,8 @@
     }
 
     li {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
     }
 
     a {
@@ -74,43 +78,84 @@
       text-decoration: underline;
     }
 
+    .project-description {
+      font-size: 0.95rem;
+      color: #555;
+      margin-top: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+
     footer {
-      margin-top: 4rem;
+      margin-top: 5rem;
       text-align: center;
       font-size: 0.9rem;
       color: #999;
+    }
+
+    .profile-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: block;
+      margin: 0 auto 1rem auto;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .profile-pic-wrapper {
+      width: 100%;
+      height: 100%;
+      transform: scale(1.10);
+      object-fit: cover;
+      object-position: 20% 30%;
     }
   </style>
 </head>
 <body>
 
   <header>
+    <div class="profile-pic">
+      <img src="profile.jpg" alt="Felipe Castellanos headshot" class="profile-pic-wrapper">
+    </div>    
     <h1>Felipe Castellanos</h1>
-    <p class="location">Bogotá, Colombia · Davidson College '27</p>
-    <p class="intro">Welcome to my portfolio. Here you’ll find a curated selection of my programming projects from coursework and independent work.</p>
+    <p class="location">Bogotá, Colombia &bull; Davidson College '27</p>
+    <p class="intro">I'm a computer science and mathematics student passionate about solving real-world problems through code. Explore selected projects from my academic journey and personal initiatives below.</p>
   </header>
 
   <section>
-    <h2>Coursework</h2>
+    <h2>Featured Projects</h2>
+
+    <h3>Global Airport Connectivity Bubble Map</h3>
+    <div class="project-description">
+      An interactive world map using D3.js and Leaflet.js visualizing airport connections from the OpenFlights dataset. Features bubble scaling, tooltips, zoom, accessibility enhancements, and route filtering.
+    </div>
+    <ul>
+      <li><a href="airport-vis/index.html">Launch Visualization</a></li>
+      <li><a href="airport-vis/writeup.pdf" target="_blank">Read Project Writeup (PDF)</a></li>
+    </ul>
+
+    <h3>Student Hub Platform</h3>
+    <div class="project-description">
+      A collaborative React + Supabase application to support academic and resource-sharing needs for Davidson students. Enables uploads, downloads, previewing, and reporting of course documents.
+    </div>
+    <ul>
+      <li><a href="https://github.com/N-Pacis/Student-Hub/tree/main" target="_blank">View GitHub Repository</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Academic Labs</h2>
 
     <h3>CSC 362: Data Visualization</h3>
     <ul>
       <li><a href="trails-skeleton/index.html">Lab 7 – Linked Bar Chart and Scatterplot</a></li>
-      <li><a href="responsive/index.html">Lab 8 – Dynamic Scatterplot</a></li>
-      <li><a href="airport-vis/index.html">Final Project: Global Airport Connectivity Bubble Map</a></li>
-        <small><a href="airport-vis/writeup.pdf" target="_blank">- Read project writeup (PDF)</a></small>
-      </li>      
-    </ul>
-    
-
-    <h3>CSC 312: Software Design</h3>
-    <ul>
-      <li><a href="https://github.com/N-Pacis/Student-Hub/tree/main" target="_blank">Student Hub – Davidson Student Platform</a></li>
+      <li><a href="responsive/index.html">Lab 8 – Responsive Scatterplot with Dynamic Filtering</a></li>
     </ul>
   </section>
 
   <footer>
-    &copy; 2025 Felipe Castellanos.
+    &copy; 2025 Felipe Castellanos &bull; <a href="mailto:castellanos.felipe@hotmail.com">castellanos.felipe@hotmail.com</a>
   </footer>
 
 </body>
