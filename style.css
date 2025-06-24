@@ -102,3 +102,33 @@ footer {
     object-fit: cover;
     object-position: 20% 30%;
 }
+
+.two-column {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    align-items: flex-start;
+  }
+  
+  .column {
+    flex: 1 1 0;
+    min-width: 300px;
+  }
+  
+  .column h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .column ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .column ul li::before {
+    content: "• ";
+    color: #555;
+  }
+  
