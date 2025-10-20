@@ -118,7 +118,7 @@ footer {
   }
   
   .column h2 {
-    font-size: 1.3rem;
+    font-size: 1.75rem;  
     margin-bottom: 0.5rem;
   }
   
@@ -132,3 +132,36 @@ footer {
     color: #555;
   }
   
+#course-list li {
+  display: list-item;
+}
+
+#course-list li.hidden {
+  display: none;
+}
+
+#toggle-courses,
+#toggle-skills {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #007acc;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+#toggle-courses:hover,
+#toggle-skills:hover {
+  text-decoration: underline;
+}
+
+#toggle-courses:focus,
+#toggle-skills:focus {
+  outline: none;
+  text-decoration: underline;
+}
+
+.hidden { display: none; }

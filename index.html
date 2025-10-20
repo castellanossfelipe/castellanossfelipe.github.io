@@ -16,10 +16,13 @@
     </div>    
     <h1>Felipe Castellanos</h1>
     <p class="location">Bogotá, Colombia &bull; Davidson College '27</p>
-    <p class="intro">I'm a Mathematics and Computer Science student at Davidson College with a 
-      passion for building the software systems behind real, physical experiences. I'm  interested 
+    <p class="intro">
+      I'm a Mathematics and Computer Science student at Davidson College with a 
+      passion for building the software systems behind real, physical experiences. I'm interested 
       in the intersection of real-time computation, embedded logic, and interactivity: where code 
-      creates experiences.  </header>     
+      creates experiences.
+    </p>
+  </header>    
 
   <section>
     
@@ -68,36 +71,83 @@
   </section>
 
   <section class="two-column">
-    <div class="column">
+    <section id="coursework">
       <h2>Relevant Coursework</h2>
-      <ul>
+      <ul id="course-list">
         <li>Data Structures</li>
+        <li>Analysis of Algorithms</li>
         <li>Software Design</li>
-        <li>Discrete Mathematics</li>
         <li>Linear Algebra</li>
-        <li>Calculus III & Modeling</li>
+        <li>Discrete Mathematics</li>
+        <li>Applied Cryptography</li>
+        <li>Combinatorial Optimization</li>
         <li>Data Visualization</li>
         <li>Real-Time Systems (Research)</li>
+        <li>Calculus III & Modeling</li>
       </ul>
-    </div>
+      <button id="toggle-courses" type="button" aria-expanded="false" aria-controls="course-list">
+        More
+      </button>
+    </section>
   
     <div class="column">
       <h2>Skills & Tools</h2>
-      <ul>
-      <li>LaTeX</li>
-      <li>C++</li>
-      <li>Racket</li>
-      <li>Python</li>
-      <li>Java</li>
-      <li>JavaScript</li>
-      <li>React.js</li>
-      <li>D3.js</li>
-      <li>Supabase</li>
-      <li>Git & GitHub</li>
-      <li>Agile / Scrum</li>
-    </ul>
-  </div>
+      <ul id="skills-list">
+        <li>Python</li>
+        <li>JavaScript</li>
+        <li>Git & GitHub</li>
+        <li>Java</li>
+        <li>C++</li>
+        <li>React.js</li>
+        <li>Agile / Scrum</li>
+        <li>D3.js</li>
+        <li>Supabase</li>
+        <li>LaTeX</li>
+        <li>Racket</li>
+      </ul>
+      <button id="toggle-skills" type="button" aria-expanded="false" aria-controls="skills-list">
+        More
+      </button>
+    </div>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    function setupToggle(listSelector, buttonSelector, visibleCount) {
+      const list   = document.querySelector(listSelector);
+      const button = document.querySelector(buttonSelector);
+      if (!list || !button) return;
+
+      const items = Array.from(list.querySelectorAll("li"));
+      const clamp = () => items.forEach((li, i) => {
+        if (i >= visibleCount) li.classList.add("hidden");
+        else li.classList.remove("hidden");
+      });
+
+      // initial state
+      clamp();
+      button.setAttribute("aria-expanded", "false");
+      button.textContent = "More";
+
+      button.addEventListener("click", () => {
+        const anyHidden = items.slice(visibleCount).some(li => li.classList.contains("hidden"));
+        if (anyHidden) {
+          items.forEach(li => li.classList.remove("hidden"));
+          button.textContent = "Show Less";
+          button.setAttribute("aria-expanded", "true");
+        } else {
+          clamp();
+          button.textContent = "More";
+          button.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
+
+    setupToggle("#course-list", "#toggle-courses", 4);
+
+    setupToggle("#skills-list", "#toggle-skills", 5);
+  });
+</script>
 
 <footer>
   &copy; 2025 Felipe Castellanos &bull;
