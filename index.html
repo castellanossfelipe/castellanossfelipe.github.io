@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="color-scheme" content="light dark">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Felipe Castellanos | Portfolio</title>
@@ -8,6 +9,25 @@
   rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
+
+<script>
+  (function () {
+    const isSmall = window.matchMedia("(max-width: 820px)").matches;
+    const dismissed = localStorage.getItem("mobileNoticeDismissed") === "1";
+    const bar = document.getElementById("mobile-notice");
+    const btn = document.getElementById("dismiss-notice");
+    if (!bar || !btn) return;
+
+    if (isSmall && !dismissed) {
+      bar.hidden = false;
+      btn.addEventListener("click", () => {
+        localStorage.setItem("mobileNoticeDismissed", "1");
+        bar.remove();
+      });
+    }
+  })();
+</script>
+
 <body>
 
   <header>
@@ -144,6 +164,11 @@
     setupToggle("#skills-list", "#toggle-skills", 5);
   });
 </script>
+
+<div id="mobile-notice" role="status" aria-live="polite" hidden>
+  Heads up: this portfolio is in active development and not fully optimized for small screens yet.
+  <button type="button" id="dismiss-notice" aria-label="Dismiss mobile notice">Got it</button>
+</div>
 
 <footer>
   &copy; 2025 Felipe Castellanos &bull;

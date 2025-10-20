@@ -2,26 +2,76 @@
 :root{
   --bg: #f7f9fb;
   --card: #ffffff;
-  --text: #243247;
-  --muted: #6b7480;
-  --border: #e6ebf1;
-  --accent: #0b74da;        /* your brand blue */
+  --text: #1e293b;          /* slightly darker for better legibility */
+  --muted: #49576a;         /* darker than #6b7480 */
+  --border: #d7dde6;        /* a bit stronger */
+  --accent: #0b74da;
   --accent-weak: #e7f2ff;
   --shadow: 0 8px 24px rgba(0,0,0,0.06);
 }
 
+/* --- contrast helpers --- */
+:root{
+  --bg-2: #f4f7fa;                 /* used in gradient */
+  --focus-ring: rgba(11,116,218,0.35);
+}
+
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#0e1116;
-    --card:#141922;
-    --text:#e6eaf2;
-    --muted:#a1a9b6;
-    --border:#2a2f39;
-    --accent:#5aa9ff;
-    --accent-weak:#112137;
-    --shadow: 0 10px 28px rgba(0,0,0,0.45);
+    --bg:   #0b1118;        /* slightly lighter than #0e1116 for readability */
+    --bg-2: #0f1722;        /* gradient stop */
+    --card: #111827;        /* card on bg */
+    --text: #ecf2ff;        /* near-white, cool tint */
+    --muted:#c2cad8;        /* readable muted text */
+    --border:#3a4454;       /* visible separators */
+    --accent:#8fc3ff;       /* brighter links in dark mode */
+    --accent-weak:#173a66;  /* pill background */
+    --shadow: 0 10px 28px rgba(0,0,0,0.55);
+    --focus-ring: rgba(143,195,255,0.45);
   }
+
+  /* Links: brighter + thicker underline */
+  a {
+    color: var(--accent);
+    background-size: 0 2px;
+  }
+  a:hover { background-size: 100% 2px; }
+
+  /* Headings & separators: ensure visible under dark bg */
+  h2 { border-bottom-color: var(--border); }
+  .section-accent { border-left-color: var(--accent); }
+
+  /* Cards and subtle text */
+  .project-card {
+    background: var(--card);
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+  }
+  .project-description,
+  .location,
+  footer,
+  small, i, em { color: var(--muted); }
+
+  /* Skill pills: higher contrast foreground/background */
+  #skills-list li {
+    background: rgba(143, 195, 255, 0.18);                                /* fallback */
+    background: color-mix(in srgb, var(--accent) 18%, transparent);        /* override */
+    color: #e6f1ff;
+    border-color: rgba(143, 195, 255, 0.45);
+  }
+
+  /* Toggles + focus ring without color-mix */
+  #toggle-courses,
+  #toggle-skills { color: var(--accent); }
+  #toggle-courses:focus-visible,
+  #toggle-skills:focus-visible {
+    outline: 3px solid var(--focus-ring);
+  }
+
+  /* Borders that must pop on dark */
+  .profile-pic { border-color: var(--border); }
 }
+
 
 * { box-sizing: border-box; }
 
@@ -33,7 +83,7 @@ html, body {
 body {
   font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--text);
-  background: linear-gradient(135deg, var(--bg), #f4f7fa 25%, var(--bg) 60%);
+  background: linear-gradient(135deg, var(--bg), var(--bg-2) 25%, var(--bg) 60%);
   min-height: 100vh;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -123,11 +173,15 @@ a {
   transition: background-size 200ms ease;
 }
 a:hover { background-size: 100% 2px; }
-a:focus-visible {
-  outline: 3px solid color-mix(in oklab, var(--accent) 30%, transparent);
-  outline-offset: 2px;
-  border-radius: 4px;
+/* replace both existing :focus-visible blocks */
+a:focus-visible,
+#toggle-courses:focus-visible,
+#toggle-skills:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
+
 
 /* ========= Lists ========= */
 ul { list-style: none; padding: 0; margin: 0; }
@@ -151,7 +205,8 @@ li { margin-bottom: 0.55rem; }
   padding: 0.35rem 0.75rem;
   border-radius: 999px;
   font-size: 0.9rem;
-  border: 1px solid color-mix(in oklab, var(--accent) 20%, transparent);
+  border: 1px solid rgba(11, 116, 218, 0.25);                         /* fallback */
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); /* override when supported */
   white-space: nowrap;
 }
 
@@ -221,13 +276,6 @@ li { margin-bottom: 0.55rem; }
 #toggle-courses:hover,
 #toggle-skills:hover { text-decoration: underline; }
 
-#toggle-courses:focus-visible,
-#toggle-skills:focus-visible {
-  outline: 3px solid color-mix(in oklab, var(--accent) 30%, transparent);
-  outline-offset: 3px;
-  border-radius: 6px;
-}
-
 /* Hide items for both toggles */
 .hidden { display: none !important; }
 
@@ -241,3 +289,62 @@ footer {
 
 /* ========= Micro details ========= */
 small, i, em { color: var(--muted); }
+
+/* ===== Quick Mobile Polish ===== */
+@media (max-width: 820px){
+  body { padding: 1.25rem; max-width: 720px; }
+  section { margin-bottom: 2.5rem; }
+  .two-column { grid-template-columns: 1fr; gap: 1.5rem; }
+  .project-card { border-radius: 12px; padding: 1rem 1rem 0.9rem; }
+  h2 { font-size: 1.35rem; }
+  h3 { font-size: 1.05rem; }
+  p.intro { font-size: 1rem; }
+  #skills-list li { font-size: 0.85rem; padding: 0.3rem 0.6rem; }
+  #course-list { padding-left: 1rem; }
+  #toggle-courses, #toggle-skills { font-size: 0.95rem; }
+  .profile-pic { width: 110px; height: 110px; }
+}
+
+@media (max-width: 420px){
+  body { padding: 1rem; }
+  h1 { font-size: clamp(1.8rem, 7vw, 2.2rem); }
+  h2 { font-size: 1.25rem; }
+  .project-actions { gap: 0.6rem; }
+  a { font-weight: 600; }
+  /* Prevent link underline animation jank on very small viewports */
+  a { background-size: 0 2px; }
+  a:hover { background-size: 100% 2px; }
+}
+
+/* ===== Mobile Notice ===== */
+#mobile-notice {
+  position: sticky;
+  bottom: 0;
+  margin-top: 1rem;
+  background: #fff7d6;
+  color: #5c4a00;
+  border: 1px solid #ffe48a;
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+  font-size: 0.95rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#mobile-notice button {
+  appearance: none;
+  border: none;
+  background: #5c4a00;
+  color: #fff;
+  padding: 0.35rem 0.65rem;
+  border-radius: 8px;
+  font: inherit;
+  cursor: pointer;
+}
+
+@media (min-width: 821px){
+  #mobile-notice { display: none !important; }
+}
