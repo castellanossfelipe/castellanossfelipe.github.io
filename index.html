@@ -24,34 +24,30 @@
     </p>
   </header>    
 
-  <section>
+  <section class="section-accent">
     
     <h2>Featured Projects</h2>
 
-    <h3>Global Airport Connectivity Bubble Map</h3>
-    <div class="project-description">
-      An interactive world map using D3.js and Leaflet.js visualizing airport connections from the 
-      OpenFlights dataset. Features bubble scaling, tooltips, zoom, accessibility enhancements, 
-      and route filtering. <p><i>Project built in collaboration with C. Ratliff.</i></p>
+    <div class="project-card">
+      <h3>Global Airport Connectivity Bubble Map</h3>
+      <p class="project-description">
+        Interactive world map using D3.js and Leaflet.js visualizing airport connections…
+      </p>
+      <div class="project-actions">
+        <a href="airport-vis/index.html">Launch Visualization</a>
+        <a href="airport-vis/writeup.pdf" target="_blank">Read Project Writeup (PDF)</a>
+      </div>
     </div>
-    <ul>
-      <li><a href="airport-vis/index.html">Launch Visualization</a></li>
-      <li><a href="airport-vis/writeup.pdf" target="_blank">Read Project Writeup (PDF)</a></li>
-    </ul>
 
-    <h3>Student Hub Platform</h3>
-    <div class="project-description">
-      A collaborative React + Supabase application to support academic and resource-sharing needs 
-      for Davidson students. Enables uploads, downloads, previewing, and reporting of course 
-      documents. <i>Developed within a Scrum framework using Agile methodology, emphasizing 
-        iterative delivery, peer reviews, and stand-up meetings.</i> <p><i>Project built in 
-          collaboration with N. Pacis, K. Bwansi & C. Hirwa.</i></p>
-
-    </div>    
-    <ul>
-      <li><a href="https://github.com/N-Pacis/Student-Hub/tree/main" target="_blank">View GitHub 
-        Repository</a></li>
-    </ul>
+    <div class="project-card">
+      <h3>Student Hub Platform</h3>
+      <p class="project-description">
+        React + Supabase app for sharing course documents. Built with Scrum & peer reviews…
+      </p>
+      <div class="project-actions">
+        <a href="https://github.com/N-Pacis/Student-Hub/tree/main" target="_blank">View GitHub Repository</a>
+      </div>
+    </div>
   </section>
 
   <section>
@@ -143,7 +139,7 @@
       });
     }
 
-    setupToggle("#course-list", "#toggle-courses", 4);
+    setupToggle("#course-list", "#toggle-courses", 3);
 
     setupToggle("#skills-list", "#toggle-skills", 5);
   });
