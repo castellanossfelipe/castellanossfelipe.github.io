@@ -10,25 +10,14 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<script>
-  (function () {
-    const isSmall = window.matchMedia("(max-width: 820px)").matches;
-    const dismissed = localStorage.getItem("mobileNoticeDismissed") === "1";
-    const bar = document.getElementById("mobile-notice");
-    const btn = document.getElementById("dismiss-notice");
-    if (!bar || !btn) return;
-
-    if (isSmall && !dismissed) {
-      bar.hidden = false;
-      btn.addEventListener("click", () => {
-        localStorage.setItem("mobileNoticeDismissed", "1");
-        bar.remove();
-      });
-    }
-  })();
-</script>
-
 <body>
+  <!-- Sticky top banner -->
+  <header class="site-banner" role="banner">
+    <div class="banner-inner">
+      <img src="profile.jpg" alt="Felipe Castellanos headshot" class="banner-avatar" />
+      <div class="banner-name" aria-label="Site owner">Felipe Castellanos</div>
+    </div>
+  </header>
 
   <header>
     <div class="profile-pic">
@@ -166,9 +155,72 @@
 </script>
 
 <div id="mobile-notice" role="status" aria-live="polite" hidden>
-  Heads up: this portfolio is in active development and not fully optimized for small screens yet.
-  <button type="button" id="dismiss-notice" aria-label="Dismiss mobile notice">OK</button>
+  <div>
+    <span>Heads up: this portfolio is in active development and not fully optimized for small screens yet.</span>
+    <button type="button" id="dismiss-notice" aria-label="Dismiss mobile notice">OK</button>
+  </div>
 </div>
+
+<script>
+  (function () {
+    const bar = document.getElementById("mobile-notice");
+    const btn = document.getElementById("dismiss-notice");
+    if (!bar || !btn) return;
+
+    const mq = window.matchMedia("(max-width: 820px)");
+
+    // Storage helpers (safe on Safari private mode)
+    function getDismissed() {
+      try { return localStorage.getItem("mobileNoticeDismissed") === "1"; }
+      catch { return false; }
+    }
+    function setDismissed() {
+      try { localStorage.setItem("mobileNoticeDismissed", "1"); }
+      catch {}
+    }
+
+    function update() {
+      bar.hidden = !(mq.matches && !getDismissed());
+    }
+
+    // Bind multiple event types for iOS/Safari quirks
+    function dismiss(e) {
+      if (e) e.preventDefault();
+      setDismissed();
+      // Hide immediately even if storage is blocked
+      bar.hidden = true;
+      // As an extra guard, also remove from DOM
+      setTimeout(() => { if (bar && bar.parentNode) bar.parentNode.removeChild(bar); }, 0);
+    }
+
+    ["click", "pointerdown", "touchend"].forEach(type => {
+      btn.addEventListener(type, dismiss, { once: true, passive: false });
+    });
+
+    // Initial visibility + react to breakpoint changes
+    if (mq.addEventListener) mq.addEventListener("change", update);
+    else if (mq.addListener) mq.addListener(update); // older Safari
+    update();
+  })();
+</script>
+
+<script>
+  (function () {
+    const banner = document.querySelector(".site-banner");
+    if (!banner) return;
+
+    function update() {
+      const show = window.scrollY > 50;
+      banner.classList.toggle("show", show);
+      document.body.classList.toggle("banner-visible", show);
+    }
+
+    // Set initial state and on scroll
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("load", update);
+    document.addEventListener("DOMContentLoaded", update);
+  })();
+</script>
 
 <footer>
   &copy; 2025 Felipe Castellanos &bull;

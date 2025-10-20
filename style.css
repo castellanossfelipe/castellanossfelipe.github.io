@@ -72,6 +72,99 @@
   .profile-pic { border-color: var(--border); }
 }
 
+/* --- Sticky Banner --- */
+:root{
+  --banner-h: 72px;
+  --avatar-h: 40px;
+}
+@media (min-width: 820px){
+  :root{
+    --banner-h: 84px;
+    --avatar-h: 56px;
+  }
+}
+
+/* Push content down so banner doesn't overlap when visible */
+/* No offset by default */
+body { padding-top: 0; }
+
+/* Add space ONLY when banner is showing */
+body.banner-visible {
+  padding-top: calc(var(--banner-h) + env(safe-area-inset-top, 0px));
+}
+
+/* Banner is positioned but hidden at the top */
+.site-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--banner-h);
+  z-index: 999;
+  background: color-mix(in srgb, var(--card) 86%, transparent);
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding-top: env(safe-area-inset-top, 0px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+
+  /* Initially hidden */
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark){
+  .site-banner {
+    background: color-mix(in srgb, var(--card) 82%, transparent);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+  }
+}
+
+/* When scrolling: reveal banner */
+.site-banner.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Sticky banner layout (ADD THIS) */
+.banner-inner{
+  max-width: 1000px;
+  margin: 0 auto;
+  height: var(--banner-h);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+}
+
+.banner-avatar{
+  width: var(--avatar-h);
+  height: var(--avatar-h);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 20% 30%;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  flex: 0 0 auto;
+}
+
+.banner-name{
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: clamp(1.05rem, 1.2vw + 0.7rem, 1.35rem);
+}
+
+/* Ensure oversized content can’t spill out of the fixed bar */
+.site-banner{ overflow: hidden; }
+
+
+@media (prefers-color-scheme: dark){
+  .site-banner { background: color-mix(in srgb, var(--card) 82%, transparent); }
+}
 
 * { box-sizing: border-box; }
 
@@ -94,7 +187,8 @@ body {
 }
 
 /* ========= Header ========= */
-header {
+/* Only style the hero header, not the sticky banner */
+header:not(.site-banner) {
   text-align: center;
   margin-bottom: 3rem;
 }
@@ -147,7 +241,7 @@ h2 {
   border-bottom: 2px solid var(--border);
 }
 
-/* Optional accent bar for big sections — add class="section-accent" to <section> */
+/* Optional accent bar for big sections */
 .section-accent {
   border-left: 4px solid var(--accent);
   padding-left: 1rem;
@@ -173,7 +267,6 @@ a {
   transition: background-size 200ms ease;
 }
 a:hover { background-size: 100% 2px; }
-/* replace both existing :focus-visible blocks */
 a:focus-visible,
 #toggle-courses:focus-visible,
 #toggle-skills:focus-visible {
@@ -187,7 +280,6 @@ a:focus-visible,
 ul { list-style: none; padding: 0; margin: 0; }
 li { margin-bottom: 0.55rem; }
 
-/* Keep coursework as standard bullets */
 #course-list { padding-left: 1.1rem; }
 #course-list li { list-style: disc; }
 
@@ -234,7 +326,6 @@ li { margin-bottom: 0.55rem; }
 .project-card p { margin: 0.25rem 0 0.75rem; color: var(--muted); }
 .project-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-/* If keeping simple description blocks, still give them rhythm */
 .project-description {
   font-size: 0.98rem;
   color: var(--muted);
@@ -316,22 +407,32 @@ small, i, em { color: var(--muted); }
   a:hover { background-size: 100% 2px; }
 }
 
-/* ===== Mobile Notice ===== */
+/* ===== Mobile Notice (final) ===== */
 #mobile-notice {
-  position: sticky;
-  bottom: 0;
-  margin-top: 1rem;
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 10000;
   background: #fff7d6;
   color: #5c4a00;
-  border: 1px solid #ffe48a;
-  border-radius: 10px;
+  border-top: 1px solid #ffe48a;
   padding: 0.75rem 0.9rem;
   font-size: 0.95rem;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-  display: flex;
-  justify-content: space-between;
+
+  display: flex;            /* layout */
+  justify-content: center;  /* center inner container */
   align-items: center;
   gap: 0.75rem;
+
+  pointer-events: auto;     /* ensure it captures taps */
+}
+
+#mobile-notice > div {
+  max-width: 1000px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: center;
 }
 
 #mobile-notice button {
@@ -339,10 +440,13 @@ small, i, em { color: var(--muted); }
   border: none;
   background: #5c4a00;
   color: #fff;
-  padding: 0.35rem 0.65rem;
+  padding: 0.4rem 0.7rem;
   border-radius: 8px;
   font: inherit;
   cursor: pointer;
+  position: relative;
+  z-index: 10001;           /* guarantee on top */
+  touch-action: manipulation; /* fixes some iOS delays */
 }
 
 @media (min-width: 821px){
