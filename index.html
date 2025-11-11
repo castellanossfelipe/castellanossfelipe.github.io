@@ -1,235 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Document metadata and global resources -->
   <meta name="color-scheme" content="light dark">
   <meta charset="UTF-8" />
+  <meta name="description" content="Portfolio of Felipe Castellanos, a Math & Computer Science 
+  student at Davidson College focused on real-time systems, data visualization, and interactive 
+  software.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Felipe Castellanos | Portfolio</title>
+
+  <!-- Web font and main stylesheet -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-  rel="stylesheet">
+        rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <!-- Sticky top banner -->
+  <!-- Sticky top banner (appears after scrolling) -->
   <header class="site-banner" role="banner">
     <div class="banner-inner">
       <img src="profile.jpg" alt="Felipe Castellanos headshot" class="banner-avatar" />
-      <div class="banner-name" aria-label="Site owner">Felipe Castellanos</div>
+      <div class="banner-name">Felipe Castellanos</div>
     </div>
   </header>
 
-  <header>
-    <div class="profile-pic">
-      <img src="profile.jpg" alt="Felipe Castellanos headshot" class="profile-pic-wrapper">
-    </div>    
-    <h1>Felipe Castellanos</h1>
-    <p class="location">Bogotá, Colombia &bull; Davidson College '27</p>
-    <p class="intro">
-      I'm a Mathematics and Computer Science student at Davidson College with a 
-      passion for building the software systems behind real, physical experiences. I'm interested 
-      in the intersection of real-time computation, embedded logic, and interactivity: where code 
-      creates experiences.
-    </p>
-  </header>    
-
-  <section class="section-accent">
-    
-    <h2>Featured Projects</h2>
-
-    <div class="project-card">
-      <h3>Global Airport Connectivity Bubble Map</h3>
-      <p class="project-description">
-        Interactive world map using D3.js and Leaflet.js visualizing airport connections…
+  <!-- Main content area -->
+  <main>
+    <!-- Hero header / intro section -->
+    <header>
+      <div class="profile-pic">
+        <img src="profile.jpg" alt="Felipe Castellanos headshot" class="profile-pic-wrapper">
+      </div>    
+      <h1>Felipe Castellanos</h1>
+      <p class="location">Bogotá, Colombia &bull; Davidson College '27</p>
+      <p class="intro">
+        I'm a Mathematics and Computer Science student at Davidson College with a 
+        passion for building the software systems behind real, physical experiences. I'm interested 
+        in the intersection of real-time computation, embedded logic, and interactivity: where code 
+        creates experiences.
       </p>
-      <div class="project-actions">
-        <a href="airport-vis/index.html">Launch Visualization</a>
-        <a href="airport-vis/writeup.pdf" target="_blank">Read Project Writeup (PDF)</a>
+    </header>    
+
+    <!-- Featured projects section -->
+    <section class="section-accent">
+      <h2>Featured Projects</h2>
+
+      <!-- Project: Global Airport Connectivity Bubble Map -->
+      <div class="project-card">
+        <h3>Global Airport Connectivity Bubble Map</h3>
+        <p class="project-description">
+          An interactive world map using D3.js and Leaflet.js visualizing airport connections from the OpenFlights dataset.
+        </p>
+        <div class="project-actions">
+          <a href="airport-vis/index.html">Launch Visualization</a>
+          <a href="airport-vis/writeup.pdf" target="_blank">Read Project Writeup (PDF)</a>
+        </div>
       </div>
-    </div>
 
-    <div class="project-card">
-      <h3>Student Hub Platform</h3>
-      <p class="project-description">
-        React + Supabase app for sharing course documents. Built with Scrum & peer reviews…
-      </p>
-      <div class="project-actions">
-        <a href="https://github.com/N-Pacis/Student-Hub/tree/main" target="_blank">View GitHub Repository</a>
+      <!-- Project: Student Hub Platform -->
+      <div class="project-card">
+        <h3>Student Hub Platform</h3>
+        <p class="project-description">
+          React + Supabase app built to support academic and resource-sharing needs for Davidson students. 
+          Built with Scrum & peer reviews.
+        </p>
+        <div class="project-actions">
+          <a href="https://github.com/N-Pacis/Student-Hub/tree/main"
+             target="_blank" rel="noopener noreferrer">
+            View GitHub Repository
+          </a>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Academic Labs</h2>
-
-    <h3>CSC 362: Data Visualization</h3>
-    <ul>
-      <li><a href="trails-skeleton/index.html">Lab 7 – Linked Bar Chart and Scatterplot</a> (JavaScript, CSS, HTML)</li>
-      <li><a href="responsive/index.html">Lab 8 – Responsive Scatterplot with Dynamic 
-        Filtering</a> (JavaScript, CSS, HTML)</li>
-    </ul>
-
-    <h3>CSC 221: Data Structures</h3>
-    <ul>
-      <li><a href="boggle/Boggle.jar">Homework 6 – Boggle Board</a> (Java)</li> 
-    </ul>
-  </section>
-
-  <section class="two-column">
-    <section id="coursework">
-      <h2>Relevant Coursework</h2>
-      <ul id="course-list">
-        <li>Data Structures</li>
-        <li>Analysis of Algorithms</li>
-        <li>Software Design</li>
-        <li>Linear Algebra</li>
-        <li>Discrete Mathematics</li>
-        <li>Applied Cryptography</li>
-        <li>Combinatorial Optimization</li>
-        <li>Data Visualization</li>
-        <li>Real-Time Systems (Research)</li>
-        <li>Calculus III & Modeling</li>
-      </ul>
-      <button id="toggle-courses" type="button" aria-expanded="false" aria-controls="course-list">
-        More
-      </button>
     </section>
-  
-    <div class="column">
-      <h2>Skills & Tools</h2>
-      <ul id="skills-list">
-        <li>Python</li>
-        <li>JavaScript</li>
-        <li>Git & GitHub</li>
-        <li>Java</li>
-        <li>React.js</li>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>C++</li>
-        <li>Agile / Scrum</li>
-        <li>D3.js</li>
-        <li>Supabase</li>
-        <li>LaTeX</li>
-        <li>Racket</li>
+
+    <!-- Academic labs / coursework artifacts -->
+    <section>
+      <h2>Academic Labs</h2>
+
+      <!-- Data Visualization labs -->
+      <h3>CSC 362: Data Visualization</h3>
+      <ul>
+        <li><a href="trails-skeleton/index.html">Lab 7 – Linked Bar Chart and Scatterplot</a> (JavaScript, CSS, HTML)</li>
+        <li><a href="responsive/index.html">Lab 8 – Responsive Scatterplot with Dynamic 
+          Filtering</a> (JavaScript, CSS, HTML)</li>
       </ul>
-      <button id="toggle-skills" type="button" aria-expanded="false" aria-controls="skills-list">
-        More
-      </button>
+
+      <!-- Data Structures assignment -->
+      <h3>CSC 221: Data Structures</h3>
+      <ul>
+        <li><a href="boggle/Boggle.jar">Homework 6 – Boggle Board</a> (Java)</li> 
+      </ul>
+    </section>
+
+    <!-- Two-column layout: coursework and skills -->
+    <section class="two-column">
+      <!-- Coursework list with “More” toggle -->
+      <section id="coursework">
+        <h2>Relevant Coursework</h2>
+        <ul id="course-list">
+          <li>Data Structures</li>
+          <li>Analysis of Algorithms</li>
+          <li>Software Design</li>
+          <li>Linear Algebra</li>
+          <li>Discrete Mathematics</li>
+          <li>Applied Cryptography</li>
+          <li>Combinatorial Optimization</li>
+          <li>Data Visualization</li>
+          <li>Real-Time Systems (Research)</li>
+          <li>Calculus III & Modeling</li>
+        </ul>
+        <button id="toggle-courses" type="button" aria-expanded="false" aria-controls="course-list">
+          More
+        </button>
+      </section>
+    
+      <!-- Skills list with pill styling + toggle -->
+      <div class="column">
+        <h2>Skills & Tools</h2>
+        <ul id="skills-list">
+          <li>Python</li>
+          <li>JavaScript</li>
+          <li>Git & GitHub</li>
+          <li>Java</li>
+          <li>React.js</li>
+          <li>HTML</li>
+          <li>CSS</li>
+          <li>C++</li>
+          <li>Agile / Scrum</li>
+          <li>D3.js</li>
+          <li>Supabase</li>
+          <li>LaTeX</li>
+          <li>Racket</li>
+        </ul>
+        <button id="toggle-skills" type="button" aria-expanded="false" aria-controls="skills-list">
+          More
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Mobile-only notice about in-progress responsive work -->
+  <div id="mobile-notice" role="status" aria-live="polite" hidden>
+    <div>
+      <span>Heads up: this portfolio is in active development and not fully optimized for small screens yet.</span>
+      <button type="button" id="dismiss-notice" aria-label="Dismiss mobile notice">OK</button>
     </div>
-</section>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    function setupToggle(listSelector, buttonSelector, visibleCount) {
-      const list   = document.querySelector(listSelector);
-      const button = document.querySelector(buttonSelector);
-      if (!list || !button) return;
-
-      const items = Array.from(list.querySelectorAll("li"));
-      const clamp = () => items.forEach((li, i) => {
-        if (i >= visibleCount) li.classList.add("hidden");
-        else li.classList.remove("hidden");
-      });
-
-      // initial state
-      clamp();
-      button.setAttribute("aria-expanded", "false");
-      button.textContent = "More";
-
-      button.addEventListener("click", () => {
-        const anyHidden = items.slice(visibleCount).some(li => li.classList.contains("hidden"));
-        if (anyHidden) {
-          items.forEach(li => li.classList.remove("hidden"));
-          button.textContent = "Show Less";
-          button.setAttribute("aria-expanded", "true");
-        } else {
-          clamp();
-          button.textContent = "More";
-          button.setAttribute("aria-expanded", "false");
-        }
-      });
-    }
-
-    setupToggle("#course-list", "#toggle-courses", 3);
-
-    setupToggle("#skills-list", "#toggle-skills", 5);
-  });
-</script>
-
-<div id="mobile-notice" role="status" aria-live="polite" hidden>
-  <div>
-    <span>Heads up: this portfolio is in active development and not fully optimized for small screens yet.</span>
-    <button type="button" id="dismiss-notice" aria-label="Dismiss mobile notice">OK</button>
   </div>
-</div>
 
-<script>
-  (function () {
-    const bar = document.getElementById("mobile-notice");
-    const btn = document.getElementById("dismiss-notice");
-    if (!bar || !btn) return;
+  <!-- Global footer with contact links -->
+  <footer>
+    &copy; 2025 Felipe Castellanos &bull;
+    <a href="mailto:castellanos.felipe@hotmail.com">castellanos.felipe@hotmail.com</a> &bull;
+    <a href="https://www.linkedin.com/in/fecas04"
+       target="_blank" rel="noopener noreferrer">
+      LinkedIn
+    </a> &bull;
+    <a href="https://github.com/castellanossfelipe"
+       target="_blank" rel="noopener noreferrer">
+      GitHub
+    </a>
+  </footer>
 
-    const mq = window.matchMedia("(max-width: 820px)");
-
-    // Storage helpers (safe on Safari private mode)
-    function getDismissed() {
-      try { return localStorage.getItem("mobileNoticeDismissed") === "1"; }
-      catch { return false; }
-    }
-    function setDismissed() {
-      try { localStorage.setItem("mobileNoticeDismissed", "1"); }
-      catch {}
-    }
-
-    function update() {
-      bar.hidden = !(mq.matches && !getDismissed());
-    }
-
-    // Bind multiple event types for iOS/Safari quirks
-    function dismiss(e) {
-      if (e) e.preventDefault();
-      setDismissed();
-      // Hide immediately even if storage is blocked
-      bar.hidden = true;
-      // As an extra guard, also remove from DOM
-      setTimeout(() => { if (bar && bar.parentNode) bar.parentNode.removeChild(bar); }, 0);
-    }
-
-    ["click", "pointerdown", "touchend"].forEach(type => {
-      btn.addEventListener(type, dismiss, { once: true, passive: false });
-    });
-
-    // Initial visibility + react to breakpoint changes
-    if (mq.addEventListener) mq.addEventListener("change", update);
-    else if (mq.addListener) mq.addListener(update); // older Safari
-    update();
-  })();
-</script>
-
-<script>
-  (function () {
-    const banner = document.querySelector(".site-banner");
-    if (!banner) return;
-
-    function update() {
-      const show = window.scrollY > 50;
-      banner.classList.toggle("show", show);
-      document.body.classList.toggle("banner-visible", show);
-    }
-
-    // Set initial state and on scroll
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("load", update);
-    document.addEventListener("DOMContentLoaded", update);
-  })();
-</script>
-
-<footer>
-  &copy; 2025 Felipe Castellanos &bull;
-  <a href="mailto:castellanos.felipe@hotmail.com">castellanos.felipe@hotmail.com</a> &bull;
-  <a href="https://www.linkedin.com/in/fecas04" target="_blank">LinkedIn</a> &bull;
-  <a href="https://github.com/castellanossfelipe" target="_blank">GitHub</a>
-</footer>
-
+  <!-- Main client-side behavior (toggles, banner, mobile notice) -->
+  <script src="js/main.js"></script>
 </body>
 </html>
