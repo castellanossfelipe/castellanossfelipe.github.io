@@ -46,29 +46,93 @@
     <section class="section-accent">
       <h2>Featured Projects</h2>
 
-      <!-- Project: Global Airport Connectivity Bubble Map -->
       <div class="project-card">
-        <h3>Global Airport Connectivity Bubble Map</h3>
+        <div class="project-card-header">
+          <h3>Research in Critical-Section Granularity</h3>
+          <span class="project-type">Research</span>
+        </div>
+
         <p class="project-description">
-          An interactive world map using D3.js and Leaflet.js visualizing airport connections from the OpenFlights dataset.
+          Studied how safety-critical and less-critical software that share resources can still meet strict timing guarantees 
+          in a mixed-criticality real-time system. We worked on a response-time model showing how the size and structure of 
+          critical sections trade off blocking, abort overhead, and timing guarantees, giving guidelines for choosing 
+          critical-section granularity.
         </p>
-        <div class="project-actions">
-          <a href="airport-vis/index.html">Launch Visualization</a>
-          <a href="airport-vis/writeup.pdf" target="_blank">Read Project Writeup (PDF)</a>
+
+        <div class="project-tags" aria-label="Technologies used">
+          <span class="project-tag">Real-Time Systems</span>
+          <span class="project-tag">Python</span>
+          <span class="project-tag">LaTeX</span>
+        </div>
+
+        <div class="project-meta">
+          <span class="project-meta-label">Collaboration</span>
+          <span class="project-role">
+            My role: developed foundational sections and proved a response-time theorem and its supporting lemmas.
+          </span>
         </div>
       </div>
 
-      <!-- Project: Student Hub Platform -->
       <div class="project-card">
-        <h3>Student Hub Platform</h3>
+        <div class="project-card-header">
+          <h3>Global Airport Connectivity Bubble Map</h3>
+          <span class="project-type">Data visualization</span>
+        </div>
+
         <p class="project-description">
-          React + Supabase app built to support academic and resource-sharing needs for Davidson students. 
-          Built with Scrum & peer reviews.
+          Interactive world map using D3.js and Leaflet.js visualizing airport connections from the OpenFlights dataset.
         </p>
+
+        <div class="project-tags" aria-label="Technologies used">
+          <span class="project-tag">D3.js</span>
+          <span class="project-tag">Leaflet.js</span>
+          <span class="project-tag">JavaScript</span>
+          <span class="project-tag">Data cleaning</span>
+        </div>
+
+        <div class="project-meta">
+          <span class="project-meta-label">Collaboration</span>
+          <span class="project-role">
+            My role: data processing, D3/Leaflet integration, and interaction design.
+          </span>
+        </div>
+
         <div class="project-actions">
-          <a href="https://github.com/N-Pacis/Student-Hub/tree/main"
-             target="_blank" rel="noopener noreferrer">
-            View GitHub Repository
+          <a class="btn btn-primary" href="airport-vis/index.html">Launch visualization</a>
+          <a class="btn btn-ghost" href="airport-vis/writeup.pdf" target="_blank" rel="noopener noreferrer">
+            Read project writeup (PDF)
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <h3>Student Hub Platform</h3>
+          <span class="project-type">Full-stack web app</span>
+        </div>
+
+        <p class="project-description">
+          React + Supabase app to support academic and resource-sharing needs for Davidson students. Built with Scrum and peer reviews.
+        </p>
+
+        <div class="project-tags" aria-label="Technologies used">
+          <span class="project-tag">React</span>
+          <span class="project-tag">Supabase</span>
+          <span class="project-tag">Agile / Scrum</span>
+        </div>
+
+        <div class="project-meta">
+          <span class="project-meta-label">Collaboration</span>
+          <span class="project-role">
+            My role: core React components and Supabase integration (schema, auth, and data flows).
+          </span>
+        </div>
+
+        <div class="project-actions">
+          <a class="btn btn-primary"
+            href="https://github.com/N-Pacis/Student-Hub/tree/main"
+            target="_blank" rel="noopener noreferrer">
+            View GitHub repository
           </a>
         </div>
       </div>
@@ -107,7 +171,6 @@
           <li>Applied Cryptography</li>
           <li>Combinatorial Optimization</li>
           <li>Data Visualization</li>
-          <li>Real-Time Systems (Research)</li>
           <li>Calculus III & Modeling</li>
         </ul>
         <button id="toggle-courses" type="button" aria-expanded="false" aria-controls="course-list">
