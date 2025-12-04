@@ -111,7 +111,7 @@ body.banner-visible {
   width: var(--avatar-h);
   height: var(--avatar-h);
   border-radius: 50%;
-  object-fit: cover;
+  overflow: hidden;              /* important so zoomed img stays inside circle */
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
   flex: 0 0 auto;
@@ -187,15 +187,12 @@ p.intro {
   border: 1px solid var(--border);
 }
 
-/* The actual <img> inside the hero circle */
-.profile-pic-wrapper {
-  width: 100%; 
+/* Inner avatar images: hero + banner */
+.profile-pic-wrapper,
+.banner-avatar-img {
+  width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.banner-avatar,
-.profile-pic-wrapper {
   object-position: var(--avatar-pos-x) var(--avatar-pos-y);
   transform: scale(var(--avatar-zoom));
   transform-origin: center center;
