@@ -1,4 +1,4 @@
-// ========= Toggle “More” / “Show Less” for coursework and skills =========
+// ========= Toggle “More” / “Show Less” for coursework, skills & projects =========
 document.addEventListener("DOMContentLoaded", function () {
   /**
    * Sets up a show-more / show-less toggle for a given list.
@@ -42,13 +42,62 @@ document.addEventListener("DOMContentLoaded", function () {
         button.setAttribute("aria-expanded", "false");
       }
     });
-  }
+  } // <-- this closing brace for setupToggle was missing
 
   // Apply toggle behavior to coursework and skills lists
   setupToggle("#course-list", "#toggle-courses", 3);
   setupToggle("#skills-list", "#toggle-skills", 5);
-});
 
+  // ========= Featured projects “More projects” / “Show less” =========
+  const title = document.getElementById("projects-title");
+  const grid  = document.getElementById("featured-projects-grid");
+  const btn   = document.getElementById("toggle-projects");
+
+  // Only run if all elements exist
+  if (title && grid && btn) {
+    const tiles = Array.from(grid.querySelectorAll(".project-tile"));
+    const PROJECT_VISIBLE_COUNT = 3;
+
+    function clampProjects() {
+      tiles.forEach((tile, i) => {
+        if (i >= PROJECT_VISIBLE_COUNT) tile.classList.add("hidden");
+        else tile.classList.remove("hidden");
+      });
+    }
+
+    // Initial collapsed state
+    clampProjects();
+    btn.setAttribute("aria-expanded", "false");
+    btn.textContent = "More projects";
+    title.textContent = "Featured Projects";
+
+    btn.addEventListener("click", () => {
+      const isExpanded = btn.getAttribute("aria-expanded") === "true";
+
+      if (!isExpanded) {
+        // Expand: show all tiles
+        tiles.forEach(t => t.classList.remove("hidden"));
+        btn.setAttribute("aria-expanded", "true");
+        btn.textContent = "Show less";
+        title.textContent = "My Projects";
+      } else {
+        // Collapse back to first 3
+        clampProjects();
+        btn.setAttribute("aria-expanded", "false");
+        btn.textContent = "More projects";
+        title.textContent = "Featured Projects";
+
+        // Nice UX: bring the user back to the top of the section
+        title.scrollIntoView({ block: "start", behavior: "smooth" });
+      }
+    });
+
+    // Optional: if you ever have <= 3 projects, hide the button
+    if (tiles.length <= PROJECT_VISIBLE_COUNT) {
+      btn.classList.add("hidden");
+    }
+  }
+});
 
 // ========= Mobile notice bar =========
 (function () {
@@ -116,4 +165,19 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("load", update);
   document.addEventListener("DOMContentLoaded", update);
   update();
+})();
+
+// ========= Featured project tile click handling (modal-ready) =========
+(function () {
+  function handleProjectTileClick(projectId) {
+    // Placeholder for future modal/pop-up
+    // You can later replace this with: openProjectModal(projectId)
+    console.log("Featured project clicked:", projectId);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".project-tile").forEach((tile) => {
+      tile.addEventListener("click", () => handleProjectTileClick(tile.dataset.project));
+    });
+  });
 })();

@@ -44,110 +44,117 @@
 
     <!-- Featured projects section -->
     <section class="section-accent">
-      <h2>Featured Projects</h2>
+      <h2 id="projects-title">Featured Projects</h2>
 
-      <div class="project-card">
-        <div class="project-card-header">
-          <h3>Research in Critical-Section Granularity</h3>
-          <span class="project-type">Research</span>
-        </div>
-
-        <p class="project-description">
-          Studied how safety-critical and less-critical software that share resources can still meet strict timing guarantees 
-          in a mixed-criticality real-time system. We worked on a response-time model showing how the size and structure of 
-          critical sections trade off blocking, abort overhead, and timing guarantees, giving guidelines for choosing 
-          critical-section granularity.
-        </p>
-
-        <div class="project-tags" aria-label="Technologies used">
-          <span class="project-tag">Real-Time Systems</span>
-          <span class="project-tag">Python</span>
-          <span class="project-tag">LaTeX</span>
-          <span class="project-tag">Academic Research</span>
-        </div>
-
-        <div class="project-meta">
-          <span class="project-meta-label">Collaboration</span>
-          <span class="project-role">
-            My role: developed foundational sections and proved a response-time theorem and its supporting lemmas.
-          </span>
-        </div>
+      <!-- (Optional) reserved space for a future search/filter row -->
+      <div class="projects-toolbar" aria-label="Featured project controls">
+        <!-- Search bar / filters can be added here later without touching the grid -->
       </div>
 
-      <div class="project-card">
-        <div class="project-card-header">
-          <h3>Global Airport Connectivity Bubble Map</h3>
-          <span class="project-type">Data visualization</span>
-        </div>
+      <div class="projects-grid" id="featured-projects-grid">
+        <button
+          type="button"
+          class="project-tile"
+          data-project="critical-section-granularity"
+          aria-label="Open details: Secure File Transfer System"
+        >
+          <div class="project-tile-header">
+            <h3 class="project-tile-title">Secure File Transfer System</h3>
+            <span class="project-type">Cryptography</span>
+          </div>
 
-        <p class="project-description">
-          Interactive world map using D3.js and Leaflet.js visualizing airport connections from the OpenFlights dataset.
-        </p>
+          <p class="project-tile-desc">
+            AES-GCM encrypted client–server file transfer
+          </p>
 
-        <div class="project-tags" aria-label="Technologies used">
-          <span class="project-tag">D3.js</span>
-          <span class="project-tag">Leaflet.js</span>
-          <span class="project-tag">JavaScript</span>
-          <span class="project-tag">Data cleaning</span>
-        </div>
+          <div class="project-tile-pills" aria-label="Skills and tools used">
+            <span class="pill">Python</span>
+            <span class="pill">PyCryptodome</span>
+          </div>
+        </button>
 
-        <div class="project-meta">
-          <span class="project-meta-label">Collaboration</span>
-          <span class="project-role">
-            My role: data processing, D3/Leaflet integration, and interaction design.
-          </span>
-        </div>
+        <button
+          type="button"
+          class="project-tile"
+          data-project="critical-section-granularity"
+          aria-label="Open details: Research in Critical-Section Granularity"
+        >
+          <div class="project-tile-header">
+            <h3 class="project-tile-title">Research in Critical-Section Granularity</h3>
+            <span class="project-type">Research</span>
+          </div>
 
-        <div class="project-actions">
-          <a class="btn btn-primary" href="airport-vis/index.html">Launch visualization</a>
-          <a class="btn btn-ghost" href="airport-vis/writeup.pdf" target="_blank" rel="noopener noreferrer">
-            Read project writeup (PDF)
-          </a>
-        </div>
+          <p class="project-tile-desc">
+            Mixed-criticality resource sharing and granularity tradeoffs
+          </p>
+
+          <div class="project-tile-pills" aria-label="Skills and tools used">
+            <span class="pill">Real-Time Systems</span>
+            <span class="pill">Python</span>
+            <span class="pill">LaTeX</span>
+          </div>
+        </button>
+
+        <button
+          type="button"
+          class="project-tile"
+          data-project="airport-connectivity-map"
+          aria-label="Open details: Global Airport Connectivity Bubble Map"
+        >
+          <div class="project-tile-header">
+            <h3 class="project-tile-title">Global Airport Connectivity Bubble Map</h3>
+            <span class="project-type">Data vis.</span>
+          </div>
+
+          <p class="project-tile-desc">
+            Interactive world map of global airport connections
+          </p>
+
+          <div class="project-tile-pills" aria-label="Skills and tools used">
+            <span class="pill">D3.js</span>
+            <span class="pill">Leaflet.js</span>
+            <span class="pill">Data cleaning</span>
+          </div>
+        </button>
+
+        <button
+          type="button"
+          class="project-tile"
+          data-project="student-hub"
+          aria-label="Open details: Student Hub Platform"
+        >
+          <div class="project-tile-header">
+            <h3 class="project-tile-title">Student Hub Platform</h3>
+            <span class="project-type">Web app</span>
+          </div>
+
+          <p class="project-tile-desc">
+            Student academic resource platform using React and Supabase
+          </p>
+
+          <div class="project-tile-pills" aria-label="Skills and tools used">
+            <span class="pill">React</span>
+            <span class="pill">Supabase</span>
+            <span class="pill">Agile / Scrum</span>
+          </div>
+        </button>
       </div>
 
-      <div class="project-card">
-        <div class="project-card-header">
-          <h3>Student Hub Platform</h3>
-          <span class="project-type">Full-stack web app</span>
-        </div>
+      <button
+        id="toggle-projects"
+        type="button"
+        aria-expanded="false"
+        aria-controls="featured-projects-grid"
+        class="projects-toggle"
+      >
+        More projects
+      </button>
 
-        <p class="project-description">
-          React + Supabase app to support academic and resource-sharing needs for Davidson students. Built with Scrum and peer reviews.
-        </p>
-
-        <div class="project-tags" aria-label="Technologies used">
-          <span class="project-tag">React</span>
-          <span class="project-tag">Supabase</span>
-          <span class="project-tag">Agile / Scrum</span>
-        </div>
-
-        <div class="project-meta">
-          <span class="project-meta-label">Collaboration</span>
-          <span class="project-role">
-            My role: core React components and Supabase integration (schema, auth, and data flows).
-          </span>
-        </div>
-
-        <div class="project-actions">
-          <a class="btn btn-primary"
-            href="https://github.com/N-Pacis/Student-Hub/tree/main"
-            target="_blank" rel="noopener noreferrer">
-            View GitHub repository
-          </a>
-        </div>
-      </div>
     </section>
 
     <!-- Academic labs / coursework artifacts -->
     <section>
       <h2>Academic Labs</h2>
-
-      <!-- Applied Cryptography labs -->
-      <h3>Applied Cryptography</h3>
-      <ul>
-        <li><a href="https://github.com/jackbray287/Cryptography">Final Project - Encrypted file-transfer client/server built on custom protocols and AES-GCM messaging</a> (Python (PyCryptodome))</li>
-      </ul>
 
       <!-- Data Visualization labs -->
       <h3>CSC 362: Data Visualization</h3>
