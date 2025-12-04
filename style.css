@@ -486,6 +486,39 @@ small, i, em { color: var(--muted); }
   /* Prevent link underline animation jank on very small viewports */
 }
 
+/* Subtle “in progress” marker for Relevant Coursework */
+#course-list li[data-status="in-progress"]{
+  list-style-type: circle; /* hollow bullet = not completed */
+}
+
+/* Slightly tinted marker so it reads but doesn’t shout */
+#course-list li[data-status="in-progress"]::marker{
+  color: color-mix(in srgb, var(--accent) 55%, var(--muted));
+}
+
+/* Optional tiny chip label */
+#course-list li[data-status="in-progress"]::after{
+  content: "In progress";
+  display: inline-block;
+  margin-left: 0.55rem;
+  padding: 0.08rem 0.45rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  color: var(--muted);
+  border: 1px solid color-mix(in srgb, var(--muted) 28%, transparent);
+  background: color-mix(in srgb, var(--card) 80%, transparent);
+  border-radius: 999px;
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+/* On very small screens, hide the chip and keep only the hollow bullet */
+@media (max-width: 420px){
+  #course-list li[data-status="in-progress"]::after{ display: none; }
+}
+
 /* ========= Mobile notice bar ========= */
 #mobile-notice {
   position: fixed;
