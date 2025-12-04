@@ -424,6 +424,8 @@ li { margin-bottom: 0.55rem; }
   transition:color 160ms ease;
 }
 
+#toggle-projects { margin-top: 0.9rem; }
+
 .toggle-btn::after{
   content:"▾";
   font-size:0.9em;
