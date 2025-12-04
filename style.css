@@ -8,12 +8,10 @@
   --accent: #0b74da;
   --accent-weak: #e7f2ff;
   --shadow: 0 8px 24px rgba(0,0,0,0.06);
-}
-
-/* Additional tokens / helpers */
-:root{
   --bg-2: #f4f7fa;                 /* used in gradient */
   --focus-ring: rgba(11,116,218,0.35);
+  --banner-h: 72px;
+  --avatar-h: 40px;
 }
 
 /* ========= Dark theme overrides ========= */
@@ -31,28 +29,6 @@
     --focus-ring: rgba(143,195,255,0.45);
   }
 
-  /* Links: brighter + thicker underline in dark mode */
-  a {
-    color: var(--accent);
-    background-size: 0 2px;
-  }
-  a:hover { background-size: 100% 2px; }
-
-  /* Headings & separators in dark mode */
-  h2 { border-bottom-color: var(--border); }
-  .section-accent { border-left-color: var(--accent); }
-
-  /* Cards and secondary text in dark mode */
-  .project-card {
-    background: var(--card);
-    border-color: var(--border);
-    box-shadow: var(--shadow);
-  }
-  .project-description,
-  .location,
-  footer,
-  small, i, em { color: var(--muted); }
-
   /* Skill pills: higher contrast foreground/background in dark mode */
   :is(#skills-list li, .pill) {
     background: rgba(143, 195, 255, 0.18);                                /* fallback */
@@ -60,34 +36,15 @@
     color: #e6f1ff;
     border-color: rgba(143, 195, 255, 0.45);
   }
-
-  /* Toggle buttons + focus ring for dark theme */
-  #toggle-courses,
-  #toggle-skills { color: var(--accent); }
-  #toggle-courses:focus-visible,
-  #toggle-skills:focus-visible {
-    outline: 3px solid var(--focus-ring);
-  }
-
-  /* Profile border should still be visible on dark bg */
-  .profile-pic { border-color: var(--border); }
 }
 
 /* ========= Sticky banner sizing tokens ========= */
-:root{
-  --banner-h: 72px;
-  --avatar-h: 40px;
-}
 @media (min-width: 820px){
   :root{
     --banner-h: 84px;
     --avatar-h: 56px;
   }
 }
-
-/* Push content down so banner doesn't overlap when visible */
-/* No offset by default */
-body { padding-top: 0; }
 
 /* Add space ONLY when banner is showing */
 body.banner-visible {
@@ -117,9 +74,6 @@ body.banner-visible {
   transform: translateY(-100%);
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
-
-  /* Ensure oversized content can’t spill out of the fixed bar */
-  overflow: hidden;
 }
 
 /* Dark mode adjustments for sticky banner */
@@ -171,9 +125,6 @@ body.banner-visible {
   text-overflow: ellipsis;
   font-size: clamp(1.05rem, 1.2vw + 0.7rem, 1.35rem);
 }
-
-/* Redundant safety rule: keeps overflow hidden (can be consolidated) */
-.site-banner{ overflow: hidden; }
 
 /* ========= Global reset / base layout ========= */
 * { box-sizing: border-box; }
@@ -297,7 +248,6 @@ li { margin-bottom: 0.55rem; }
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  padding-left: 0;
 }
 /* Shared pill style (Skills section + project tiles) */
 :is(#skills-list li, .pill) {
@@ -322,37 +272,8 @@ li { margin-bottom: 0.55rem; }
   align-items: start;
 }
 .column { min-width: 280px; }
-@media (max-width: 820px){
-  .two-column { grid-template-columns: 1fr; }
-}
 
 /* ========= Project cards ========= */
-.project-card {
-  background: var(--card);
-  border-radius: 16px;
-  padding: 1.35rem 1.4rem 1.2rem;
-  box-shadow: var(--shadow);
-  margin: 1.1rem 0 1.4rem;
-  border: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-}
-
-/* Top row: title + type */
-.project-card-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem;
-}
-
-.project-card-header h3 {
-  margin: 0;
-  font-size: 1.2rem;
-  letter-spacing: -0.01em;
-}
-
 .project-type {
   font-size: 0.8rem;
   text-transform: uppercase;
@@ -362,136 +283,6 @@ li { margin-bottom: 0.55rem; }
   padding: 0.2rem 0.55rem;
   border-radius: 999px;
   white-space: nowrap;
-}
-
-/* Description */
-.project-description {
-  font-size: 0.95rem;
-  color: var(--muted);
-  margin: 0.15rem 0 0.35rem;
-}
-
-/* Tech tags row */
-.project-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 0.55rem;
-}
-
-.project-tag {
-  font-size: 0.82rem;
-  padding: 0.18rem 0.55rem;
-  border-radius: 999px;
-  background: var(--accent-weak);
-  color: var(--accent);
-  border: 1px solid rgba(11,116,218,0.18);
-}
-
-/* Project meta: collaboration + role (subtle, no badge) */
-.project-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 0.65rem;
-  align-items: baseline;
-  margin-top: 0.3rem;
-  padding-top: 0.5rem;
-  border-top: 1px dashed var(--border);
-  font-size: 0.86rem;
-  color: var(--muted);
-}
-
-.project-meta-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-weight: 600;
-  color: var(--muted);
-  padding: 0.08rem 0.35rem;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.03);
-  white-space: nowrap;
-}
-
-.project-role {
-  flex: 1 1 auto;
-}
-
-/* Stack nicely on very small screens */
-@media (max-width: 420px) {
-  .project-meta {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-/* Actions row */
-.project-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 0.4rem;
-}
-
-/* Button-style links */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.3rem;
-  padding: 0.45rem 0.95rem;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  border: 1px solid transparent;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: #ffffff;
-  box-shadow: 0 8px 18px rgba(11,116,218,0.24);
-}
-
-.btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(11,116,218,0.3);
-}
-
-.btn-ghost {
-  background: transparent;
-  color: var(--accent);
-  border-color: rgba(11,116,218,0.25);
-}
-
-.btn-ghost:hover {
-  background: rgba(11,116,218,0.04);
-}
-
-/* Mobile tightening for cards */
-@media (max-width: 820px) {
-  .project-card {
-    padding: 1.05rem 1.05rem 0.95rem;
-    border-radius: 12px;
-  }
-
-  .project-card-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-@media (max-width: 420px) {
-  .project-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .btn {
-    width: 100%;
-    justify-content: center;
-  }
 }
 
 /* ========= Featured project tiles (grid) ========= */
@@ -614,81 +405,43 @@ li { margin-bottom: 0.55rem; }
   .project-tile:hover { transform: none; }
 }
 
-/* ========= Toggle buttons (coursework + skills) ========= */
-#toggle-courses,
-#toggle-skills {
-  appearance: none;
-  background: transparent;
-  border: none;
-  color: var(--accent);
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 0.4rem;
-  padding: 0.1rem 0.25rem 0.1rem 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  transition: color 160ms ease;
-}
-
-/* Down-arrow indicator on toggles */
-#toggle-courses::after,
-#toggle-skills::after {
-  content: "▾";
-  font-size: 0.9em;
-  transform-origin: center;
-  transform: rotate(0deg) translateY(-1px);
-  transition: transform 180ms ease;
-}
-
-/* Rotate arrow when expanded */
-#toggle-courses[aria-expanded="true"]::after,
-#toggle-skills[aria-expanded="true"]::after {
-  transform: rotate(180deg) translateY(1px);
-}
-
-#toggle-courses:hover,
-#toggle-skills:hover { text-decoration: underline; }
-
 /* Utility class used by JS to hide extra items */
 .hidden { display: none !important; }
 
-/* Featured projects toggle button */
-.projects-toggle {
-  appearance: none;
-  background: transparent;
-  border: none;
-  color: var(--accent);
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 0.9rem;
-  padding: 0.1rem 0.25rem 0.1rem 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  transition: color 160ms ease;
+.toggle-btn{
+  appearance:none;
+  background:transparent;
+  border:0;
+  color:var(--accent);
+  font:inherit;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:0.4rem;
+  padding:0.1rem 0.25rem 0.1rem 0;
+  display:inline-flex;
+  align-items:center;
+  gap:0.35rem;
+  transition:color 160ms ease;
 }
 
-.projects-toggle::after {
-  content: "▾";
-  font-size: 0.9em;
-  transform-origin: center;
-  transform: rotate(0deg) translateY(-1px);
-  transition: transform 180ms ease;
+.toggle-btn::after{
+  content:"▾";
+  font-size:0.9em;
+  transform-origin:center;
+  transform:rotate(0deg) translateY(-1px);
+  transition:transform 180ms ease;
 }
 
-.projects-toggle[aria-expanded="true"]::after {
-  transform: rotate(180deg) translateY(1px);
+.toggle-btn[aria-expanded="true"]::after{
+  transform:rotate(180deg) translateY(1px);
 }
 
-.projects-toggle:hover { text-decoration: underline; }
+.toggle-btn:hover{ text-decoration: underline; }
 
-.projects-toggle:focus-visible {
-  outline: 3px solid var(--focus-ring);
-  outline-offset: 3px;
-  border-radius: 6px;
+.toggle-btn:focus-visible{
+  outline:3px solid var(--focus-ring);
+  outline-offset:3px;
+  border-radius:6px;
 }
 
 /* ========= Footer ========= */
@@ -707,7 +460,6 @@ small, i, em { color: var(--muted); }
   body { padding: 1.25rem; max-width: 720px; }
   section { margin-bottom: 2.5rem; }
   .two-column { grid-template-columns: 1fr; gap: 1.5rem; }
-  .project-card { border-radius: 12px; padding: 1rem 1rem 0.9rem; }
   h2 { font-size: 1.35rem; }
   h3 { font-size: 1.05rem; }
   p.intro { font-size: 1rem; }
@@ -722,11 +474,7 @@ small, i, em { color: var(--muted); }
   body { padding: 1rem; }
   h1 { font-size: clamp(1.8rem, 7vw, 2.2rem); }
   h2 { font-size: 1.25rem; }
-  .project-actions { gap: 0.6rem; }
-  a { font-weight: 600; }
   /* Prevent link underline animation jank on very small viewports */
-  a { background-size: 0 2px; }
-  a:hover { background-size: 100% 2px; }
 }
 
 /* ========= Mobile notice bar ========= */
