@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smallest-k Prefix-Sum Decision Algorithm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="smallest_k.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="card algo-showcase" id="smallest-k">
+      <div class="algo-head">
+        <h3>Smallest-k Prefix-Sum Decision Algorithm</h3>
+        <span class="pill">Analysis of Algorithms</span>
+      </div>
+
+      <p class="muted">
+        Given an array, A, of n <i>(distinct)</i> numbers, decides whether there exists 
+        some positive integer, k, such that you can pick k distinct elements of A 
+        whose sum is at most k³. <u>Key idea:</u> if any k works, the k smallest work 
+        (minimum possible sum).
+      </p>
+
+      <div class="codebox">
+        <button class="copy-btn" type="button" data-copy-target="#smallest-k-code">
+          Copy
+        </button>
+        <pre><code id="smallest-k-code">def smallest_k(input_array):
+          """
+          Decides whether there exists an integer k such that
+          the input array contains k numbers whose sum is less than k**3
+          """
+          if len(input_array) == 0:
+              return False
+
+          sorted_array = sorted(input_array)
+
+          running_sum = 0
+
+          for i in range(len(sorted_array)):
+
+              running_sum += sorted_array[i]
+
+              if running_sum &lt;= (i + 1)**3:
+                  return True
+
+          return False
+      </code></pre>
+      </div>
+
+      <div class="algo-demo">
+        <label class="muted" for="sk-input">Try it (comma/space separated):</label>
+        <div class="row">
+          <input id="sk-input" type="text" placeholder="e.g. 5, 2, 9, -1, 3" />
+          <button id="sk-run" type="button">Run</button>
+        </div>
+
+        <div id="sk-output" class="output" aria-live="polite"></div>
+
+        <div class="table-wrap" aria-label="Step-by-step trace">
+          <table id="sk-table">
+            <thead>
+              <tr>
+                <th>k</th>
+                <th>k-th smallest</th>
+                <th>prefix sum</th>
+                <th>k³</th>
+                <th>sum ≤ k³?</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="smallest_k.js" defer></script>
+</body>
+</html>

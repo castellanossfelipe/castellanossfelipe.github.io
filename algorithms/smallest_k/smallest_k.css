@@ -1,0 +1,358 @@
+/* Simple base styles so it works standalone */
+:root {
+  --bg: #f3f6fa;                    /* softer, warmer background */
+  --bg-2: #e8edf5;                  /* secondary tint for mixing */
+
+  --card: #ffffff;
+  --text: #1a2533;                  /* slightly richer than #1e293b */
+  --muted: #5a6b80;                 /* clearer, less muddy */
+  --border: #c9d3e1;                /* lighter + more elegant */
+  
+  --accent: #0a63d1;                /* deeper, more professional blue */
+  --accent-weak: #e3edff;           /* very soft complementary blue */
+
+  --focus-ring: rgba(10, 99, 209, 0.35);
+
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.page {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+}
+
+.algo-showcase {
+  padding: 1.5rem;
+}
+
+.algo-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.pill {
+  font-size: 0.8rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  background: #f0f4ff;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.codebox {
+  margin-top: 0.75rem;
+}
+
+.codebox pre {
+  margin-top: 0.6rem;
+  padding: 0.9rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: #f5f7fb;
+  overflow: auto;
+  line-height: 1.45;
+}
+
+.codebox code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", monospace;
+  font-size: 0.92rem;
+}
+
+.copy-btn {
+  margin-top: 0.6rem;
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  border-color: #4f8edc;
+}
+
+.algo-demo {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.algo-demo .row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+#sk-input {
+  flex: 1 1 260px;
+  padding: 0.6rem 0.75rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+}
+
+#sk-run {
+  padding: 0.6rem 0.9rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #e2edff;
+  cursor: pointer;
+}
+
+.output {
+  padding: 0.75rem 0.9rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: #f5f7fb;
+}
+
+.table-wrap {
+  overflow: auto;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+
+#sk-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+}
+
+#sk-table th,
+#sk-table td {
+  padding: 0.55rem 0.65rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+#sk-table thead th {
+  background: #eef2fb;
+}
+
+/* ========= Algorithm showcase block ========= */
+
+.algo-showcase{
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  padding: 1.25rem 1.35rem;
+  margin-bottom: 3rem;
+}
+
+.algo-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+/* Code disclosure box */
+.codebox{
+  margin-top: 0.75rem;
+}
+
+.codebox pre{
+  margin-top: 0.6rem;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--card) 88%, var(--bg-2) 12%);
+  overflow: auto;
+  line-height: 1.45;
+}
+
+.codebox code{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+               "Liberation Mono", monospace;
+  font-size: 0.9rem;
+}
+
+/* Copy button, styled like a small pill/button */
+.copy-btn{
+  margin-top: 0.6rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  background: var(--card);
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: border-color 150ms ease, background-color 150ms ease,
+              transform 120ms ease, box-shadow 120ms ease;
+}
+
+.copy-btn:hover{
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  background: var(--accent-weak);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+}
+
+.copy-btn:active{
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.copy-btn:focus-visible{
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* Demo input + output */
+.algo-demo{
+  margin-top: 1.05rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.algo-demo .row{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+#sk-input{
+  flex: 1 1 260px;
+  padding: 0.6rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+}
+
+#sk-input:focus-visible{
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Run button echoes your accent / toggle style */
+#sk-run{
+  padding: 0.6rem 0.95rem;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  background: var(--accent-weak);
+  color: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: background-color 160ms ease, border-color 160ms ease,
+              transform 120ms ease, box-shadow 120ms ease;
+}
+
+#sk-run:hover{
+  background: color-mix(in srgb, var(--accent-weak) 70%, var(--accent) 30%);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  box-shadow: 0 10px 22px rgba(0,0,0,0.10);
+  transform: translateY(-1px);
+}
+
+#sk-run:active{
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+#sk-run:focus-visible{
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Result bubble */
+.output{
+  padding: 0.75rem 0.9rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--card) 90%, var(--bg-2) 10%);
+  font-size: 0.95rem;
+}
+
+/* Trace table */
+.table-wrap{
+  margin-top: 0.5rem;
+  overflow: auto;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+
+#sk-table{
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+}
+
+#sk-table th,
+#sk-table td{
+  padding: 0.5rem 0.65rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+#sk-table thead th{
+  background: color-mix(in srgb, var(--bg-2) 65%, var(--card) 35%);
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Subtle striping for readability */
+#sk-table tbody tr:nth-child(odd){
+  background: color-mix(in srgb, var(--card) 95%, var(--bg-2) 5%);
+}
+
+/* ========= Responsive tweak for narrow screens ========= */
+@media (max-width: 600px){
+  .algo-showcase{
+    padding: 1rem 1rem 1.1rem;
+    border-radius: 12px;
+  }
+  .algo-head{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
