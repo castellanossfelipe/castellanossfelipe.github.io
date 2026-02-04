@@ -181,3 +181,88 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 })();
+
+// 1. Comprehensive Data for All Cards
+const projectData = {
+  "student-hub": {
+    title: "Student Hub Platform",
+    details: "A comprehensive academic resource platform built for Davidson College students. It features real-time study group coordination and resource sharing.",
+    stack: "React, Supabase, Agile Methodology",
+    link: "https://github.com/N-Pacis/Student-Hub"
+  },
+  "secure-file-transfer": {
+    title: "Secure File Transfer System",
+    details: "Implemented end-to-end encryption using AES-GCM. The system ensures that files remain encrypted both in transit and at rest, with a Python-based client-server architecture.",
+    stack: "Python, PyCryptodome, Socket Programming",
+    link: "https://github.com/jackbray287/Cryptography"
+  },
+  "critical-section-granularity": {
+    title: "Research in Critical-Section Granularity",
+    details: "Explored the trade-offs between fine-grained and coarse-grained locking in real-time systems. Developed a Python simulation to visualize task latency under various scheduling constraints.",
+    stack: "Real-Time Systems, Python, LaTeX",
+    link: "#"
+  },
+  "airport-connectivity-map": {
+    title: "Global Airport Connectivity Bubble Map",
+    details: "An interactive visualization mapping thousands of flight paths. Users can filter by region and see the weight of connectivity based on flight frequency.",
+    stack: "D3.js, Leaflet.js, Data Cleaning",
+    link: "airport-vis/index.html"
+  }
+};
+
+// 2. Element Selectors
+const modal = document.getElementById('project-modal');
+const modalBody = document.getElementById('modal-body');
+const closeBtn = document.querySelector('.close-modal');
+const projectTiles = document.querySelectorAll('.project-tile');
+
+// 3. Functions
+function openModal(projectId) {
+  const data = projectData[projectId];
+  if (!data) return;
+
+  const pillsHtml = data.stack.split(', ')
+    .map(tech => `<span class="pill">${tech}</span>`)
+    .join('');
+
+  modalBody.innerHTML = `
+    <h2>${data.title}</h2>
+    <p>${data.details}</p>
+    <div class="modal-pills">
+      ${pillsHtml}
+    </div>
+    <a href="${data.link}" class="toggle-btn" style="text-decoration: none; display: inline-block;">
+      View Project Data
+    </a>
+  `;
+  
+  // ADD THE CLASS INSTEAD OF CHANGING STYLE DIRECTLY
+  modal.classList.add('is-visible'); 
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  // REMOVE THE CLASS
+  modal.classList.remove('is-visible');
+  document.body.style.overflow = 'auto';
+}
+
+// 4. Event Listeners
+projectTiles.forEach(tile => {
+  tile.addEventListener('click', () => {
+    const id = tile.getAttribute('data-project');
+    openModal(id);
+  });
+});
+
+closeBtn.addEventListener('click', closeModal);
+
+// Close if user clicks outside the modal box
+window.addEventListener('click', (e) => {
+  if (e.target === modal) closeModal();
+});
+
+// Close on 'Escape' key
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});

@@ -567,3 +567,94 @@ small, i, em { color: var(--muted); }
 @media (min-width: 821px){
   #mobile-notice { display: none !important; }
 }
+/* --- Modal Design Language Alignment --- */
+:root {
+  --modal-bg: #ffffff;
+  --modal-text: #111827;
+  --modal-secondary: #4b5563;
+  --modal-overlay: rgba(15, 23, 42, 0.5); /* Slate-900 with transparency */
+  --accent-blue: #2563eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --modal-bg: #1f2937; /* Gray-800 */
+    --modal-text: #f9fafb;
+    --modal-secondary: #9ca3af;
+    --modal-overlay: rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* 1. Hidden by default */
+.modal {
+  display: none; /* This now stays off until we say so */
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--modal-overlay);
+  backdrop-filter: blur(8px);
+  padding: 1.5rem;
+}
+
+/* 2. This class is added by JavaScript only when clicked */
+.modal.is-visible {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: var(--modal-bg);
+  color: var(--modal-text);
+  width: 100%;
+  max-width: 550px;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  font-family: 'Inter', sans-serif;
+  /* Remove any 'display' rules here to avoid conflicts */
+}
+
+/* Smooth fade-in animation */
+@keyframes modalEntry {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.close-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--modal-secondary);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close-modal:hover {
+  color: var(--modal-text);
+}
+
+#modal-body h2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  padding-right: 20px; /* Space for X button */
+}
+
+#modal-body p {
+  color: var(--modal-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Reusing your .pill class for the tech stack in the modal */
+.modal-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
