@@ -651,7 +651,7 @@ small, i, em { color: var(--muted); }
   margin-bottom: 1.5rem;
 }
 
-/* Reusing your .pill class for the tech stack in the modal */
+/* Reusing .pill class for the tech stack in the modal */
 .modal-pills {
   display: flex;
   flex-wrap: wrap;

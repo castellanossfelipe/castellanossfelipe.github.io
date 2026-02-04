@@ -167,21 +167,6 @@ document.addEventListener("DOMContentLoaded", function () {
   update();
 })();
 
-// ========= Featured project tile click handling (modal-ready) =========
-(function () {
-  function handleProjectTileClick(projectId) {
-    // Placeholder for future modal/pop-up
-    // You can later replace this with: openProjectModal(projectId)
-    console.log("Featured project clicked:", projectId);
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".project-tile").forEach((tile) => {
-      tile.addEventListener("click", () => handleProjectTileClick(tile.dataset.project));
-    });
-  });
-})();
-
 // 1. Comprehensive Data for All Cards
 const projectData = {
   "student-hub": {
@@ -225,18 +210,22 @@ function openModal(projectId) {
     .map(tech => `<span class="pill">${tech}</span>`)
     .join('');
 
+  // 1. Create the button only if the link isn't "#" and exists
+  const buttonHtml = (data.link && data.link !== "#") 
+    ? `<a href="${data.link}" class="toggle-btn" style="text-decoration: none; display: inline-block;">
+         View Project Data
+       </a>` 
+    : ''; // Empty string if link is "#"
+
   modalBody.innerHTML = `
     <h2>${data.title}</h2>
     <p>${data.details}</p>
     <div class="modal-pills">
       ${pillsHtml}
     </div>
-    <a href="${data.link}" class="toggle-btn" style="text-decoration: none; display: inline-block;">
-      View Project Data
-    </a>
+    ${buttonHtml} 
   `;
   
-  // ADD THE CLASS INSTEAD OF CHANGING STYLE DIRECTLY
   modal.classList.add('is-visible'); 
   document.body.style.overflow = 'hidden';
 }
