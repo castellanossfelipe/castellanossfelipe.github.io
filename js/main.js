@@ -169,9 +169,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // 1. Comprehensive Data for All Cards
 const projectData = {
+  "video-automation": {
+    title: "Video Automation Pipeline",
+    details: "Transcribes your video with Whisper, finds semantically matching moments using sentence-transformers and BM25, then cuts them into MP4 clips with ffmpeg.",
+    stack: "Python, Whisper, ffmpeg",
+    link: "https://github.com/castellanossfelipe/video-automation-pipeline"
+  },
   "student-hub": {
     title: "Student Hub Platform",
-    details: "A comprehensive academic resource platform built for Davidson College students. It features real-time study group coordination and resource sharing.",
+    details: "Student Hub is a React-based web application utilizing a Supabase/PostgreSQL backend and RESTful APIs to centralize course evaluations, resource sharing, and club engagement through a unified, moderated interface.",
     stack: "React, Supabase, Agile Methodology",
     link: "https://github.com/N-Pacis/Student-Hub"
   },
