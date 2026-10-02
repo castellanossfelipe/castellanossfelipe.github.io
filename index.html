@@ -13,7 +13,8 @@
   <!-- Web font and main stylesheet -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
         rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="icons.css?v=20261005">
+  <link rel="stylesheet" href="style.css?v=20261005">
 </head>
 
 <body>
@@ -21,7 +22,7 @@
   <header class="site-banner" role="banner">
     <div class="banner-inner">
       <div class="banner-avatar">
-        <img src="profile.jpg" alt="Felipe Castellanos headshot" class="banner-avatar-img" />
+        <img src="profile.jpg?v=20261005" alt="Felipe Castellanos headshot" class="banner-avatar-img" />
       </div>
       <div class="banner-name">Felipe Castellanos</div>
     </div>
@@ -32,7 +33,7 @@
     <!-- Hero header / intro section -->
     <header>
       <div class="profile-pic">
-        <img src="profile.jpg" alt="Felipe Castellanos headshot" class="profile-pic-wrapper">
+        <img src="profile.jpg?v=20261005" alt="Felipe Castellanos headshot" class="profile-pic-wrapper">
       </div>    
       <h1>Felipe Castellanos</h1>
       <p class="location">Davidson, NC &bull; Davidson College '27</p>
@@ -70,11 +71,7 @@
             Windows tool that transcribes event videos and finds the best clips for a client&rsquo;s monthly series.
           </p>
 
-          <div class="project-tile-pills" aria-label="Skills and tools used">
-            <span class="pill">Python</span>
-            <span class="pill">Whisper</span>
-            <span class="pill">Groq API</span>
-          </div>
+          <div class="project-tile-pills" aria-label="Skills and tools used"></div>
         </button>
 
         <button
@@ -92,11 +89,7 @@
             Self-hosted commission reconciliation system that replaced an insurance agency&rsquo;s Excel workflow.
           </p>
 
-          <div class="project-tile-pills" aria-label="Skills and tools used">
-            <span class="pill">GCP</span>
-            <span class="pill">Docker</span>
-            <span class="pill">NocoDB</span>
-          </div>
+          <div class="project-tile-pills" aria-label="Skills and tools used"></div>
         </button>
 
         <button
@@ -114,10 +107,7 @@
             Client&ndash;server file transfer with RSA-OAEP, HKDF and AES-256-GCM.
           </p>
 
-          <div class="project-tile-pills" aria-label="Skills and tools used">
-            <span class="pill">Python</span>
-            <span class="pill">PyCryptodome</span>
-          </div>
+          <div class="project-tile-pills" aria-label="Skills and tools used"></div>
         </button>
 
         <button
@@ -135,11 +125,7 @@
             Interactive world map of global airport connections
           </p>
 
-          <div class="project-tile-pills" aria-label="Skills and tools used">
-            <span class="pill">D3.js</span>
-            <span class="pill">Leaflet.js</span>
-            <span class="pill">Data cleaning</span>
-          </div>
+          <div class="project-tile-pills" aria-label="Skills and tools used"></div>
         </button>
 
         <button
@@ -157,11 +143,7 @@
             Environment for resource sharing and course evaluations
           </p>
 
-          <div class="project-tile-pills" aria-label="Skills and tools used">
-            <span class="pill">React</span>
-            <span class="pill">Supabase</span>
-            <span class="pill">Agile / Scrum</span>
-          </div>
+          <div class="project-tile-pills" aria-label="Skills and tools used"></div>
         </button>
       </div>
 
@@ -200,11 +182,7 @@
               Building a RISC-V CPU and SoC in SystemVerilog, from ALU and memory to a working core.
             </p>
 
-            <div class="project-tile-pills" aria-label="Skills and tools used">
-              <span class="pill">SystemVerilog</span>
-              <span class="pill">RISC-V</span>
-              <span class="pill">FPGA</span>
-            </div>
+            <div class="project-tile-pills" aria-label="Skills and tools used"></div>
           </button>
         </div>
       </div>
@@ -227,18 +205,14 @@
               Accepted to RTNS 2026. How to group resource accesses into critical sections when tasks differ in criticality.
             </p>
 
-            <div class="project-tile-pills" aria-label="Skills and tools used">
-              <span class="pill">RTNS 2026</span>
-              <span class="pill">Real-Time Systems</span>
-              <span class="pill">Second author</span>
-            </div>
+            <div class="project-tile-pills" aria-label="Skills and tools used"></div>
           </button>
         </div>
       </div>
     </section>
 
     <!-- Academic labs / coursework artifacts -->
-    <section>
+    <section id="labs">
       <h2>Academic Labs</h2>
 
       
@@ -255,23 +229,22 @@
       <!-- Analysis of Algorithms labs -->
       <h3>Analysis of Algorithms</h3>
       <ul>
-        <li><a href="algorithms/smallest_k/smallest_k.html">Smallest-K Algorithm</a> (Python)</li>
-        <li><a href="algorithms/missing_number/missing_number.py">Missing Number Algorithm - Source Code</a> (Python)</li>
+        <li class="lab-item" data-tools="python"><a href="algorithms/smallest_k/smallest_k.html">Smallest-K Algorithm</a> <button type="button" class="tool-tag" data-filter="python" data-label="Python"><i class="ti" data-tool="python" aria-hidden="true"></i>Python</button></li>
+        <li class="lab-item" data-tools="python"><a href="algorithms/missing_number/missing_number.py">Missing Number Algorithm - Source Code</a> <button type="button" class="tool-tag" data-filter="python" data-label="Python"><i class="ti" data-tool="python" aria-hidden="true"></i>Python</button></li>
       </ul>
 
       
         <!-- Data Visualization & Design labs -->
       <h3>Data Visualization & Design</h3>
       <ul>
-        <li><a href="trails-skeleton/index.html">Lab 7 – Linked Bar Chart and Scatterplot</a> (JavaScript, CSS, HTML)</li>
-        <li><a href="responsive/index.html">Lab 8 – Responsive Scatterplot with Dynamic 
-          Filtering</a> (JavaScript, CSS, HTML)</li>
+        <li class="lab-item" data-tools="javascript css html"><a href="trails-skeleton/index.html">Lab 7 – Linked Bar Chart and Scatterplot</a> <button type="button" class="tool-tag" data-filter="javascript" data-label="JavaScript"><i class="ti" data-tool="javascript" aria-hidden="true"></i>JavaScript</button> <button type="button" class="tool-tag" data-filter="css" data-label="CSS"><i class="ti" data-tool="css" aria-hidden="true"></i>CSS</button> <button type="button" class="tool-tag" data-filter="html" data-label="HTML"><i class="ti" data-tool="html" aria-hidden="true"></i>HTML</button></li>
+        <li class="lab-item" data-tools="javascript css html"><a href="responsive/index.html">Lab 8 – Responsive Scatterplot with Dynamic Filtering</a> <button type="button" class="tool-tag" data-filter="javascript" data-label="JavaScript"><i class="ti" data-tool="javascript" aria-hidden="true"></i>JavaScript</button> <button type="button" class="tool-tag" data-filter="css" data-label="CSS"><i class="ti" data-tool="css" aria-hidden="true"></i>CSS</button> <button type="button" class="tool-tag" data-filter="html" data-label="HTML"><i class="ti" data-tool="html" aria-hidden="true"></i>HTML</button></li>
       </ul>
 
       <!-- Object-Oriented Programming & Data Structures assignment -->
       <h3>Object-Oriented Programming & Data Structures</h3>
       <ul>
-        <li><a href="boggle/Boggle.jar">Homework 6 – Boggle Board</a> (Java)</li> 
+        <li class="lab-item" data-tools="java"><a href="boggle/Boggle.jar">Homework 6 – Boggle Board</a> <button type="button" class="tool-tag" data-filter="java" data-label="Java"><i class="ti" data-tool="java" aria-hidden="true"></i>Java</button></li> 
       </ul>
     </section>
 
@@ -281,20 +254,20 @@
       <section id="coursework">
         <h2>Relevant Coursework</h2>
         <ul id="course-list">
-          <li>Software Engineering & Architecture</li>
-          <li>Object-Oriented Programming & Data Structures</li>
-          <li>Analysis of Algorithms</li>
-          <li>Computer Organization & Systems</li>
-          <li data-status="in-progress">Computer Architecture & FPGAs</li>
-          <li>Database Systems</li>
-          <li>Real-Time Systems</li>
-          <li>Discrete Mathematics</li>
-          <li>Applied Cryptography</li>
+          <li data-tools="html css javascript agile react vite tailwind zustand supabase postgres">Software Engineering & Architecture</li>
+          <li data-tools="java">Object-Oriented Programming & Data Structures</li>
+          <li data-tools="python">Analysis of Algorithms</li>
+          <li data-tools="c">Computer Organization & Systems</li>
+          <li data-status="in-progress" data-tools="systemverilog riscv fpga ecp5 yosys python">Computer Architecture & FPGAs</li>
+          <li data-tools="sql">Database Systems</li>
+          <li data-tools="python">Real-Time Systems</li>
+          <li data-tools="racket">Discrete Mathematics</li>
+          <li data-tools="python pycryptodome">Applied Cryptography</li>
           <li>Combinatorial Optimization</li>
-          <li>Data Visualization & Design</li>
-          <li data-status="in-progress">Introduction to Statistics</li>
+          <li data-tools="d3">Data Visualization & Design</li>
+          <li data-status="in-progress" data-tools="r rstudio">Introduction to Statistics</li>
           <li>Linear Algebra</li>
-          <li data-status="in-progress">Mathematical Modeling</li>
+          <li data-status="in-progress" data-tools="python">Mathematical Modeling</li>
           <li>Multivariable Calculus</li>
         </ul>
         <button id="toggle-courses" class="toggle-btn" type="button" aria-expanded="false" aria-controls="course-list">
@@ -304,21 +277,46 @@
     
       <!-- Skills list with pill styling + toggle -->
       <div class="column">
-        <h2>Skills & Tools</h2>
+        <h2>Skills &amp; Tools</h2>
+        <input type="search" id="skill-search" class="skill-search" placeholder="Search skills &amp; tools"
+               aria-label="Search skills and tools" autocomplete="off">
+        <p id="skill-empty" class="skill-empty" hidden>No matching skills or tools.</p>
         <ul id="skills-list">
-          <li>Python</li>
-          <li>Java</li>
-          <li>AWS</li>
-          <li>Terraform</li>
-          <li>SQL</li>
-          <li>Git & GitHub</li>
-          <li>GitHub Copilot</li>
-          <li>C</li>
-          <li>SystemVerilog</li>
-          <li>Agile & Scrum</li>
-          <li>HTML & CSS</li>
-          <li>Racket</li>
-          <li>LaTeX</li>
+          <li><button type="button" class="tool-btn" data-filter="python" data-label="Python"><i class="ti" data-tool="python" aria-hidden="true"></i>Python</button></li>
+          <li><button type="button" class="tool-btn" data-filter="java" data-label="Java"><i class="ti" data-tool="java" aria-hidden="true"></i>Java</button></li>
+          <li><button type="button" class="tool-btn" data-filter="aws" data-label="AWS"><i class="ti" data-tool="aws" aria-hidden="true"></i>AWS</button></li>
+          <li><button type="button" class="tool-btn" data-filter="terraform" data-label="Terraform"><i class="ti" data-tool="terraform" aria-hidden="true"></i>Terraform</button></li>
+          <li><button type="button" class="tool-btn" data-filter="sql" data-label="SQL"><i class="ti" data-tool="sql" aria-hidden="true"></i>SQL</button></li>
+          <li><button type="button" class="tool-btn" data-filter="git github" data-label="Git & GitHub"><i class="ti" data-tool="git" aria-hidden="true"></i>Git &amp; GitHub</button></li>
+          <li><button type="button" class="tool-btn" data-filter="copilot" data-label="GitHub Copilot"><i class="ti" data-tool="copilot" aria-hidden="true"></i>GitHub Copilot</button></li>
+          <li><button type="button" class="tool-btn" data-filter="c" data-label="C"><i class="ti" data-tool="c" aria-hidden="true"></i>C</button></li>
+          <li><button type="button" class="tool-btn" data-filter="systemverilog" data-label="SystemVerilog"><i class="ti" data-tool="systemverilog" aria-hidden="true"></i>SystemVerilog</button></li>
+          <li><button type="button" class="tool-btn" data-filter="agile" data-label="Agile & Scrum"><i class="ti" data-tool="agile" aria-hidden="true"></i>Agile &amp; Scrum</button></li>
+          <li><button type="button" class="tool-btn" data-filter="javascript" data-label="JavaScript"><i class="ti" data-tool="javascript" aria-hidden="true"></i>JavaScript</button></li>
+          <li><button type="button" class="tool-btn" data-filter="html css" data-label="HTML & CSS"><i class="ti" data-tool="html" aria-hidden="true"></i>HTML &amp; CSS</button></li>
+          <li><button type="button" class="tool-btn" data-filter="react" data-label="React"><i class="ti" data-tool="react" aria-hidden="true"></i>React</button></li>
+          <li><button type="button" class="tool-btn" data-filter="docker" data-label="Docker"><i class="ti" data-tool="docker" aria-hidden="true"></i>Docker</button></li>
+          <li><button type="button" class="tool-btn" data-filter="gcp" data-label="GCP"><i class="ti" data-tool="gcp" aria-hidden="true"></i>GCP</button></li>
+          <li><button type="button" class="tool-btn" data-filter="postgres" data-label="PostgreSQL"><i class="ti" data-tool="postgres" aria-hidden="true"></i>PostgreSQL</button></li>
+          <li><button type="button" class="tool-btn" data-filter="supabase" data-label="Supabase"><i class="ti" data-tool="supabase" aria-hidden="true"></i>Supabase</button></li>
+          <li><button type="button" class="tool-btn" data-filter="riscv" data-label="RISC-V"><i class="ti" data-tool="riscv" aria-hidden="true"></i>RISC-V</button></li>
+          <li><button type="button" class="tool-btn" data-filter="fpga" data-label="FPGA"><i class="ti" data-tool="fpga" aria-hidden="true"></i>FPGA</button></li>
+          <li><button type="button" class="tool-btn" data-filter="playwright" data-label="Playwright"><i class="ti" data-tool="playwright" aria-hidden="true"></i>Playwright</button></li>
+          <li><button type="button" class="tool-btn" data-filter="d3" data-label="D3.js"><i class="ti" data-tool="d3" aria-hidden="true"></i>D3.js</button></li>
+          <li><button type="button" class="tool-btn" data-filter="leaflet" data-label="Leaflet.js"><i class="ti" data-tool="leaflet" aria-hidden="true"></i>Leaflet.js</button></li>
+          <li><button type="button" class="tool-btn" data-filter="vite" data-label="Vite"><i class="ti" data-tool="vite" aria-hidden="true"></i>Vite</button></li>
+          <li><button type="button" class="tool-btn" data-filter="tailwind" data-label="Tailwind CSS"><i class="ti" data-tool="tailwind" aria-hidden="true"></i>Tailwind CSS</button></li>
+          <li><button type="button" class="tool-btn" data-filter="zustand" data-label="Zustand"><i class="ti" data-tool="zustand" aria-hidden="true"></i>Zustand</button></li>
+          <li><button type="button" class="tool-btn" data-filter="nocodb" data-label="NocoDB"><i class="ti" data-tool="nocodb" aria-hidden="true"></i>NocoDB</button></li>
+          <li><button type="button" class="tool-btn" data-filter="caddy" data-label="Caddy"><i class="ti" data-tool="caddy" aria-hidden="true"></i>Caddy</button></li>
+          <li><button type="button" class="tool-btn" data-filter="whisper" data-label="Whisper"><i class="ti" data-tool="whisper" aria-hidden="true"></i>Whisper</button></li>
+          <li><button type="button" class="tool-btn" data-filter="groq" data-label="Groq API"><i class="ti" data-tool="groq" aria-hidden="true"></i>Groq API</button></li>
+          <li><button type="button" class="tool-btn" data-filter="bm25" data-label="BM25"><i class="ti" data-tool="bm25" aria-hidden="true"></i>BM25</button></li>
+          <li><button type="button" class="tool-btn" data-filter="pycryptodome" data-label="PyCryptodome"><i class="ti" data-tool="pycryptodome" aria-hidden="true"></i>PyCryptodome</button></li>
+          <li><button type="button" class="tool-btn" data-filter="r" data-label="R"><i class="ti" data-tool="r" aria-hidden="true"></i>R</button></li>
+          <li><button type="button" class="tool-btn" data-filter="rstudio" data-label="RStudio"><i class="ti" data-tool="rstudio" aria-hidden="true"></i>RStudio</button></li>
+          <li><button type="button" class="tool-btn" data-filter="racket" data-label="Racket"><i class="ti" data-tool="racket" aria-hidden="true"></i>Racket</button></li>
+          <li><button type="button" class="tool-btn" data-filter="latex" data-label="LaTeX"><i class="ti" data-tool="latex" aria-hidden="true"></i>LaTeX</button></li>
         </ul>
         <button id="toggle-skills"class="toggle-btn" type="button" aria-expanded="false" aria-controls="skills-list">
           More
@@ -333,6 +331,12 @@
       <span>Heads up: this portfolio is in active development and not fully optimized for small screens yet.</span>
       <button type="button" id="dismiss-notice" aria-label="Dismiss mobile notice">OK</button>
     </div>
+  </div>
+
+  <!-- Tool filter status bar (shown while a skill/tool is selected) -->
+  <div id="filter-bar" role="status" aria-live="polite" hidden>
+    <span id="filter-bar-text"></span>
+    <button type="button" id="filter-clear">Clear</button>
   </div>
 
   <div id="project-modal" class="modal" aria-hidden="true">
@@ -358,6 +362,7 @@
   </footer>
 
   <!-- Main client-side behavior (toggles, banner, mobile notice) -->
-  <script src="js/main.js"></script>
+  <script src="js/tools.js?v=20261005"></script>
+  <script src="js/main.js?v=20261005"></script>
 </body>
 </html>
