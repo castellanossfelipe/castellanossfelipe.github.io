@@ -63,39 +63,39 @@
         >
           <div class="project-tile-header">
             <h3 class="project-tile-title">Video Automation Pipeline</h3>
-            <span class="project-type">Web app</span>
+            <span class="project-type">Desktop app</span>
           </div>
 
           <p class="project-tile-desc">
-            Given a video, searches by keyword and exports matching clips.
+            Windows tool that transcribes event videos and finds the best clips for a client&rsquo;s monthly series.
           </p>
 
           <div class="project-tile-pills" aria-label="Skills and tools used">
             <span class="pill">Python</span>
-            <span class="pill">FastAPI</span>
             <span class="pill">Whisper</span>
+            <span class="pill">Groq API</span>
           </div>
         </button>
 
         <button
           type="button"
           class="project-tile"
-          data-project="student-hub"
-          aria-label="Open details: Student Hub Platform"
+          data-project="commission-tracker"
+          aria-label="Open details: Commission &amp; Opportunity Tracker"
         >
           <div class="project-tile-header">
-            <h3 class="project-tile-title">Student Hub Platform</h3>
-            <span class="project-type">Web app</span>
+            <h3 class="project-tile-title">Commission &amp; Opportunity Tracker</h3>
+            <span class="project-type">Full-stack</span>
           </div>
 
           <p class="project-tile-desc">
-             Environment for resource sharing and course evaluations
+            Self-hosted commission reconciliation system that replaced an insurance agency&rsquo;s Excel workflow.
           </p>
 
           <div class="project-tile-pills" aria-label="Skills and tools used">
-            <span class="pill">React</span>
-            <span class="pill">Supabase</span>
-            <span class="pill">Agile / Scrum</span>
+            <span class="pill">GCP</span>
+            <span class="pill">Docker</span>
+            <span class="pill">NocoDB</span>
           </div>
         </button>
 
@@ -111,34 +111,12 @@
           </div>
 
           <p class="project-tile-desc">
-            AES-GCM encrypted client–server file transfer
+            Client&ndash;server file transfer with RSA-OAEP, HKDF and AES-256-GCM.
           </p>
 
           <div class="project-tile-pills" aria-label="Skills and tools used">
             <span class="pill">Python</span>
             <span class="pill">PyCryptodome</span>
-          </div>
-        </button>
-
-        <button
-          type="button"
-          class="project-tile"
-          data-project="critical-section-granularity"
-          aria-label="Open details: Research in Critical-Section Granularity"
-        >
-          <div class="project-tile-header">
-            <h3 class="project-tile-title">Research in Critical-Section Granularity</h3>
-            <span class="project-type">Research</span>
-          </div>
-
-          <p class="project-tile-desc">
-            Mixed-criticality resource sharing and granularity tradeoffs
-          </p>
-
-          <div class="project-tile-pills" aria-label="Skills and tools used">
-            <span class="pill">Real-Time Systems</span>
-            <span class="pill">Python</span>
-            <span class="pill">LaTeX</span>
           </div>
         </button>
 
@@ -163,6 +141,28 @@
             <span class="pill">Data cleaning</span>
           </div>
         </button>
+
+        <button
+          type="button"
+          class="project-tile"
+          data-project="student-hub"
+          aria-label="Open details: Student Hub Platform"
+        >
+          <div class="project-tile-header">
+            <h3 class="project-tile-title">Student Hub Platform</h3>
+            <span class="project-type">Web app</span>
+          </div>
+
+          <p class="project-tile-desc">
+            Environment for resource sharing and course evaluations
+          </p>
+
+          <div class="project-tile-pills" aria-label="Skills and tools used">
+            <span class="pill">React</span>
+            <span class="pill">Supabase</span>
+            <span class="pill">Agile / Scrum</span>
+          </div>
+        </button>
       </div>
 
       <button
@@ -176,6 +176,65 @@
         More projects
       </button>
 
+    </section>
+
+    <!-- Research section: two groups, each with its own card(s) -->
+    <section id="research">
+      <h2>Research</h2>
+
+      <div class="research-group">
+        <h3>Computer Architecture &amp; FPGAs</h3>
+        <div class="projects-grid research-grid">
+          <button
+            type="button"
+            class="project-tile"
+            data-project="fpga-riscv"
+            aria-label="Open details: RISC-V Processor on an FPGA"
+          >
+            <div class="project-tile-header">
+              <h3 class="project-tile-title">RISC-V Processor on an FPGA</h3>
+              <span class="project-type">Independent study</span>
+            </div>
+
+            <p class="project-tile-desc">
+              Building a RISC-V CPU and SoC in SystemVerilog, from ALU and memory to a working core.
+            </p>
+
+            <div class="project-tile-pills" aria-label="Skills and tools used">
+              <span class="pill">SystemVerilog</span>
+              <span class="pill">RISC-V</span>
+              <span class="pill">FPGA</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div class="research-group">
+        <h3>Real-Time Systems Paper</h3>
+        <div class="projects-grid research-grid">
+          <button
+            type="button"
+            class="project-tile"
+            data-project="critical-section-granularity"
+            aria-label="Open details: Critical-Section Granularity in Mixed-Criticality Systems"
+          >
+            <div class="project-tile-header">
+              <h3 class="project-tile-title">Critical-Section Granularity in Mixed-Criticality Systems</h3>
+              <span class="project-type">Publication</span>
+            </div>
+
+            <p class="project-tile-desc">
+              Accepted to RTNS 2026. How to group resource accesses into critical sections when tasks differ in criticality.
+            </p>
+
+            <div class="project-tile-pills" aria-label="Skills and tools used">
+              <span class="pill">RTNS 2026</span>
+              <span class="pill">Real-Time Systems</span>
+              <span class="pill">Second author</span>
+            </div>
+          </button>
+        </div>
+      </div>
     </section>
 
     <!-- Academic labs / coursework artifacts -->
@@ -226,6 +285,7 @@
           <li>Object-Oriented Programming & Data Structures</li>
           <li>Analysis of Algorithms</li>
           <li>Computer Organization & Systems</li>
+          <li data-status="in-progress">Computer Architecture & FPGAs</li>
           <li>Database Systems</li>
           <li>Real-Time Systems</li>
           <li>Discrete Mathematics</li>
@@ -254,6 +314,7 @@
           <li>Git & GitHub</li>
           <li>GitHub Copilot</li>
           <li>C</li>
+          <li>SystemVerilog</li>
           <li>Agile & Scrum</li>
           <li>HTML & CSS</li>
           <li>Racket</li>

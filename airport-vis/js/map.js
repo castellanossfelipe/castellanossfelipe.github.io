@@ -11,13 +11,37 @@ document.addEventListener('DOMContentLoaded', function() {
       minZoom: 2
     });
     
-    // Add a tile to the map - using a light style for better bubble visibility
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 12
-    }).addTo(mymap);
-    
+    // Basemap: Esri Light Gray Canvas (no API key needed, light so the bubbles stay readable).
+    // The previous CARTO tiles now require an API key and render an "API KEY REQUIRED" watermark.
+    const esriBase = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+      {
+        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+        maxZoom: 12
+      }
+    ).addTo(mymap);
+
+    // Place and country labels on top of the base tiles (still below the bubbles)
+    L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+      { maxZoom: 12 }
+    ).addTo(mymap);
+
+    // Fallback: if the Esri tiles never load (blocked or offline), switch to OpenStreetMap
+    let esriLoaded = 0, esriFailed = 0, usedFallback = false;
+    esriBase.on('tileload', () => { esriLoaded++; });
+    esriBase.on('tileerror', () => {
+      esriFailed++;
+      if (!usedFallback && esriLoaded === 0 && esriFailed >= 4) {
+        usedFallback = true;
+        mymap.removeLayer(esriBase);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          maxZoom: 12
+        }).addTo(mymap);
+      }
+    });
+
     // Add a svg layer to the map
     L.svg().addTo(mymap);
     
