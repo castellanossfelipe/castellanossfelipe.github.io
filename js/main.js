@@ -99,52 +99,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// ========= Mobile notice bar =========
-(function () {
-  const bar = document.getElementById("mobile-notice");
-  const btn = document.getElementById("dismiss-notice");
-  if (!bar || !btn) return; // exit if elements are missing
-
-  // Match small screens only (same breakpoint as CSS)
-  const mq = window.matchMedia("(max-width: 820px)");
-
-  // Local storage helpers (wrapped in try/catch for Safari private mode)
-  function getDismissed() {
-    try { return localStorage.getItem("mobileNoticeDismissed") === "1"; }
-    catch { return false; }
-  }
-  function setDismissed() {
-    try { localStorage.setItem("mobileNoticeDismissed", "1"); }
-    catch {}
-  }
-
-  // Show or hide the bar based on viewport + stored dismissal
-  function update() {
-    bar.hidden = !(mq.matches && !getDismissed());
-  }
-
-  // Dismiss handler: persist choice and remove element
-  function dismiss(e) {
-    if (e) e.preventDefault();
-    setDismissed();
-    // Hide immediately even if storage is blocked
-    bar.hidden = true;
-    // Extra guard: remove from DOM to avoid stray focus/reads
-    setTimeout(() => {
-      if (bar && bar.parentNode) bar.parentNode.removeChild(bar);
-    }, 0);
-  }
-
-  // Only need a single click handler; run once
-  btn.addEventListener("click", dismiss, { once: true });
-
-  // Initial visibility + react to breakpoint changes
-  if (mq.addEventListener) mq.addEventListener("change", update);
-  else if (mq.addListener) mq.addListener(update); // older Safari
-  update();
-})();
-
-
 // ========= Sticky top banner behavior =========
 (function () {
   const banner = document.querySelector(".site-banner");
@@ -178,7 +132,7 @@ const projectData = {
   "video-automation": {
     title: "Video Automation Pipeline",
     meta: "Independent contractor · Solo · Jan–Aug 2026",
-    summary: "Windows tool that picks the best clips from a client's monthly event videos.",
+    summary: "Windows desktop app that picks the best clips from a client's monthly event videos.",
     points: [
       ["Problem", "Choosing clips by hand was the biggest time cost in the client's editing workflow."],
       ["Built", "Whisper transcription, BM25 retrieval and the Groq API find and rank the matching moments."],
@@ -227,7 +181,8 @@ const projectData = {
     ],
     tools: ["d3", "leaflet", "javascript", "python", "datacleaning"],
     tilePills: ["d3", "leaflet", "datacleaning"],
-    link: "airport-vis/index.html"
+    link: "projects/airport-vis/index.html",
+    image: { src: "images/airport-visualization.webp", width: 1200, height: 662, alt: "Bubble map of the world where each airport is a circle sized and colored by its number of routes." }
   },
   "student-hub": {
     title: "Student Hub Platform",
@@ -254,19 +209,18 @@ const projectData = {
     ],
     tools: ["systemverilog", "riscv", "fpga", "ecp5", "yosys", "python"],
     tilePills: ["systemverilog", "riscv", "fpga"],
-    link: null
+    link: "https://github.com/castellanossfelipe/riscv-fpga", linkLabel: "View repository on GitHub"
   },
   "critical-section-granularity": {
     title: "Single-Resource Critical-Section Granularity in a Mixed-Criticality System with the PCP-A",
-    meta: "Second author · Accepted to RTNS 2026 · Presenting Nov 2026",
+    meta: "First author · Accepted to RTNS 2026 · Presenting Nov 2026",
     summary: "How to group a shared resource's accesses into critical sections when tasks differ in criticality.",
     points: [
       ["Protocol", "Extends the Priority Ceiling Protocol so a low-criticality task can be safely aborted at a mode change (the PCP-A)."],
-      ["Analysis", "Bounds the blocking this causes, then uses the bounds in a heuristic that performed well against simpler approaches."],
-      ["My part", "The abort-overhead blocking term in the blocking-bound analysis."]
+      ["Analysis", "Bounds the blocking this causes, then uses the bounds in a heuristic that performed well against simpler approaches."]
     ],
     tools: ["realtime", "schedulability", "latex"],
-    tilePills: ["realtime", {text: "RTNS 2026"}, {text: "Second author"}],
+    tilePills: ["realtime", {text: "RTNS 2026"}, {text: "First author"}],
     link: null
   }
 };
@@ -365,6 +319,7 @@ const modal = document.getElementById('project-modal');
 const modalBody = document.getElementById('modal-body');
 const closeBtn = document.querySelector('.close-modal');
 const projectTiles = document.querySelectorAll('.project-tile');
+let lastFocus = null;
 
 function openModal(projectId) {
   const data = projectData[projectId];
@@ -377,13 +332,19 @@ function openModal(projectId) {
   const isExternal = data.link && /^https?:/.test(data.link);
   const buttonHtml = (data.link && !data.private)
     ? `<a href="${data.link}" class="toggle-btn modal-link"
-          ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''}>View Project Data</a>`
+          ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''}>${data.linkLabel || "View Project Data"}</a>`
+    : '';
+  // Optional screenshot; if the file is not there yet the figure removes itself.
+  const imageHtml = data.image
+    ? `<figure class="modal-figure"><img src="${data.image.src}" width="${data.image.width || ''}" height="${data.image.height || ''}" alt="${escapeHtml(data.image.alt)}" loading="lazy"
+         onerror="this.closest('figure').remove()"></figure>`
     : '';
   const noteHtml = data.private ? `<p class="modal-note">${PRIVATE_NOTE}</p>` : '';
 
   modalBody.innerHTML = `
-    <h2>${escapeHtml(data.title)}</h2>
+    <h2 id="modal-title">${escapeHtml(data.title)}</h2>
     <p class="modal-meta">${data.meta}</p>
+    ${imageHtml}
     <p class="modal-summary">${iconizeText(data.summary, true)}</p>
     <ul class="modal-points">${points}</ul>
     <div class="modal-section-label">Tools &amp; skills <span>(click one to see everything that uses it)</span></div>
@@ -392,14 +353,39 @@ function openModal(projectId) {
     ${noteHtml}
   `;
 
+  presentModal();
+}
+
+function presentModal(compact) {
+  modal.querySelector('.modal-content').classList.toggle('is-compact', !!compact);
+  lastFocus = document.activeElement;
   modal.classList.add('is-visible');
+  modal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
+  modal.querySelector('.modal-content').scrollTop = 0;
+  closeBtn.focus();
 }
 
 function closeModal() {
+  const wasOpen = modal.classList.contains('is-visible');
   modal.classList.remove('is-visible');
-  document.body.style.overflow = 'auto';
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  // Return focus to the control that opened the dialog
+  if (wasOpen && lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  lastFocus = null;
 }
+
+// Keep Tab focus inside the open dialog
+modal.addEventListener('keydown', e => {
+  if (e.key !== 'Tab') return;
+  const items = Array.from(modal.querySelectorAll('a[href], button:not([disabled]), input:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])'))
+    .filter(el => el.offsetParent !== null);
+  if (!items.length) return;
+  const first = items[0], last = items[items.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
 
 projectTiles.forEach(tile => {
   tile.addEventListener('click', () => openModal(tile.getAttribute('data-project')));
@@ -511,3 +497,33 @@ window.addEventListener('keydown', e => {
   if (modal.classList.contains('is-visible')) closeModal();
   else if (activeFilter) clearFilter();
 });
+
+
+// =====================================================================
+// Résumé dialog: a short list of downloadable versions (edit js/config.js)
+// =====================================================================
+(function () {
+  const list = (window.SITE_CONFIG && window.SITE_CONFIG.resumes) || [];
+  const trigger = document.getElementById('request-resume');
+  if (!trigger) return;
+  if (!list.length) { trigger.hidden = true; return; }
+
+  const ARROW = '<svg class="resume-arrow" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 4v12"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>';
+
+  trigger.addEventListener('click', () => {
+    modalBody.innerHTML = `
+      <h2 id="modal-title">Résumé</h2>
+      <p class="resume-lede">${list.length > 1 ? 'Choose the version that fits.' : 'Download as a PDF.'}</p>
+      <ul class="resume-list">
+        ${list.map(r => `
+          <li><a class="resume-row" href="${escapeHtml(r.file)}" download>
+            <span class="resume-text">
+              <span class="resume-name">${escapeHtml(r.label)}</span>
+              ${r.note ? `<span class="resume-note">${escapeHtml(r.note)}</span>` : ''}
+            </span>
+            <span class="resume-get"><span class="resume-type">PDF</span>${ARROW}<span class="visually-hidden">Download ${escapeHtml(r.label)} résumé</span></span>
+          </a></li>`).join('')}
+      </ul>`;
+    presentModal(true);
+  });
+})();
