@@ -138,7 +138,7 @@ const projectData = {
       ["My role", "Solo, from requirements to delivery and support. Built on macOS, packaged for Windows."],
       ["Status", "In monthly production use."]
     ],
-    tools: ["python", "whisper", "bm25", "groq", "windows"],
+    tools: ["python", "whisper", "bm25", "groq", "windows", "claudecode"],
     tilePills: ["python", {text: "Speech-to-text"}, {text: "Retrieval"}],
     link: null, private: true
   },
@@ -152,7 +152,7 @@ const projectData = {
       ["Hardened", "Fixed forged-cookie, open-redirect and open-signup flaws found in a security review."],
       ["Result", "~100 clients, $0 ongoing hosting cost, 33 unit tests and 28 Playwright end-to-end tests."]
     ],
-    tools: ["gcp", "docker", "nocodb", "caddy", "python", "playwright"],
+    tools: ["gcp", "linux", "docker", "nocodb", "caddy", "python", "playwright", "claudecode"],
     tilePills: ["gcp", "docker", "python"],
     link: null, private: true
   },
@@ -178,7 +178,7 @@ const projectData = {
       ["Data", "OpenFlights: 7,698 airports and 67,663 routes, cleaned down to ~3,400 route-serving airports."],
       ["My part", "All data processing, tooling choices and accessibility checks. My partner wrote the report."]
     ],
-    tools: ["d3", "leaflet", "javascript", "python"],
+    tools: ["d3", "leaflet", "javascript", "python", "claudecode"],
     topics: ["Data cleaning", "Accessibility"],
     tilePills: ["d3", "leaflet", {text: "Data cleaning"}],
     link: "projects/airport-vis/index.html",
@@ -207,7 +207,7 @@ const projectData = {
       ["So far", "ALU and memory modules passing 36/36 self-checking tests, a Python assembler, and a first SoC skeleton."],
       ["Next", "Instruction decode, branches, load/store and UART, then pipelining."]
     ],
-    tools: ["systemverilog", "riscv", "fpga", "ecp5", "yosys", "python"],
+    tools: ["systemverilog", "riscv", "fpga", "ecp5", "yosys", "python", "claudecode"],
     tilePills: ["systemverilog", "riscv", "fpga"],
     link: "https://github.com/castellanossfelipe/riscv-fpga", linkLabel: "View repository on GitHub"
   },
@@ -219,7 +219,7 @@ const projectData = {
       ["Protocol", "Extends the Priority Ceiling Protocol so a low-criticality task can be safely aborted at a mode change (the PCP-A)."],
       ["Analysis", "Bounds the blocking this causes, then uses the bounds in a heuristic that performed well against simpler approaches."]
     ],
-    tools: ["latex"],
+    tools: ["latex", "claudecode"],
     topics: ["Real-time systems", "Schedulability analysis"],
     tilePills: [{text: "Real-time systems"}, {text: "RTNS 2026"}, {text: "First author"}],
     link: null

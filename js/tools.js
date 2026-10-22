@@ -76,6 +76,12 @@ const TOOLS = {
    "GCP"
   ]
  },
+ "linux": {
+  "label": "Linux",
+  "aliases": [
+   "Linux"
+  ]
+ },
  "docker": {
   "label": "Docker",
   "aliases": [
@@ -93,6 +99,12 @@ const TOOLS = {
   "label": "GitHub",
   "aliases": [
    "GitHub"
+  ]
+ },
+ "claudecode": {
+  "label": "Claude Code",
+  "aliases": [
+   "Claude Code"
   ]
  },
  "copilot": {

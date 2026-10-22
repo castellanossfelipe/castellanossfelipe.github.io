@@ -185,7 +185,17 @@ li { margin-bottom: 0.55rem; }
   font-size: 0.9rem; white-space: nowrap;
   border: 1px solid var(--border);
 }
-#skills-list { display: grid; gap: 1.25rem; }
+#skills-list { display: grid; gap: 1.1rem; }
+.skill-group { margin-bottom: 0; }
+/* Core skills: a small accent dot on the chip's corner, plus a legend under the search box */
+#skills-list li.is-core { position: relative; border-color: var(--border-strong); }
+#skills-list li.is-core::after {
+  content: ""; position: absolute; top: -3px; right: -3px; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 0 2px var(--bg);
+}
+#skills-list li.is-core.is-active::after { background: var(--on-accent); box-shadow: 0 0 0 2px var(--accent); }
+.skill-legend { display: flex; align-items: center; gap: 0.5rem; margin: 0 0 1rem; font-size: 0.85rem; color: var(--muted); }
+.core-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); flex: none; }
 .skill-group h3 { margin: 0 0 0.5rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 .skill-group ul { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 #skills-list li { padding: 0; margin: 0; }

@@ -18,8 +18,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&display=swap"
         rel="stylesheet">
-  <link rel="stylesheet" href="icons.css?v=20261021">
-  <link rel="stylesheet" href="style.css?v=20261030">
+  <link rel="stylesheet" href="icons.css?v=20261022c">
+  <link rel="stylesheet" href="style.css?v=20261022c">
 </head>
 
 <body>
@@ -270,7 +270,7 @@
           <li data-tools="html css javascript agile react vite tailwind zustand supabase postgres">Software Engineering & Architecture</li>
           <li data-tools="java">Object-Oriented Programming & Data Structures</li>
           <li data-tools="python">Analysis of Algorithms</li>
-          <li data-tools="c">Computer Organization & Systems</li>
+          <li data-tools="c linux">Computer Organization & Systems</li>
           <li data-status="in-progress" data-tools="systemverilog riscv fpga ecp5 yosys python">Computer Architecture & FPGAs</li>
           <li data-tools="sql">Database Systems</li>
           <li data-tools="python">Real-Time Systems</li>
@@ -293,15 +293,16 @@
         <h2>Skills &amp; Tools</h2>
         <input type="search" id="skill-search" class="skill-search" placeholder="Search skills &amp; tools" name="skill-search"
                aria-label="Search skills and tools" autocomplete="off">
+        <p class="skill-legend"><span class="core-dot" aria-hidden="true"></span>Core: strongest and most recently used</p>
         <p id="skill-empty" class="skill-empty" hidden>No matching skills or tools.</p>
         <div id="skills-list">
           <section class="skill-group" aria-labelledby="sg-0">
             <h3 id="sg-0">Languages</h3>
             <ul>
-            <li><button type="button" class="tool-btn" data-filter="python" data-label="Python"><i class="ti" data-tool="python" aria-hidden="true"></i>Python</button></li>
-            <li><button type="button" class="tool-btn" data-filter="java" data-label="Java"><i class="ti" data-tool="java" aria-hidden="true"></i>Java</button></li>
+            <li class="is-core"><button type="button" class="tool-btn" data-filter="python" data-label="Python"><i class="ti" data-tool="python" aria-hidden="true"></i>Python<span class="visually-hidden"> (core skill)</span></button></li>
+            <li class="is-core"><button type="button" class="tool-btn" data-filter="java" data-label="Java"><i class="ti" data-tool="java" aria-hidden="true"></i>Java<span class="visually-hidden"> (core skill)</span></button></li>
+            <li class="is-core"><button type="button" class="tool-btn" data-filter="c" data-label="C"><i class="ti" data-tool="c" aria-hidden="true"></i>C<span class="visually-hidden"> (core skill)</span></button></li>
             <li><button type="button" class="tool-btn" data-filter="javascript" data-label="JavaScript"><i class="ti" data-tool="javascript" aria-hidden="true"></i>JavaScript</button></li>
-            <li><button type="button" class="tool-btn" data-filter="c" data-label="C"><i class="ti" data-tool="c" aria-hidden="true"></i>C</button></li>
             <li><button type="button" class="tool-btn" data-filter="sql" data-label="SQL"><i class="ti" data-tool="sql" aria-hidden="true"></i>SQL</button></li>
             <li><button type="button" class="tool-btn" data-filter="systemverilog" data-label="SystemVerilog"><i class="ti" data-tool="systemverilog" aria-hidden="true"></i>SystemVerilog</button></li>
             <li><button type="button" class="tool-btn" data-filter="racket" data-label="Racket"><i class="ti" data-tool="racket" aria-hidden="true"></i>Racket</button></li>
@@ -322,29 +323,31 @@
           <section class="skill-group" aria-labelledby="sg-2">
             <h3 id="sg-2">Data &amp; Cloud</h3>
             <ul>
+            <li class="is-core"><button type="button" class="tool-btn" data-filter="aws" data-label="AWS"><i class="ti" data-tool="aws" aria-hidden="true"></i>AWS<span class="visually-hidden"> (core skill)</span></button></li>
+            <li class="is-core"><button type="button" class="tool-btn" data-filter="terraform" data-label="Terraform"><i class="ti" data-tool="terraform" aria-hidden="true"></i>Terraform<span class="visually-hidden"> (core skill)</span></button></li>
+            <li><button type="button" class="tool-btn" data-filter="gcp" data-label="GCP"><i class="ti" data-tool="gcp" aria-hidden="true"></i>GCP</button></li>
+            <li><button type="button" class="tool-btn" data-filter="docker" data-label="Docker"><i class="ti" data-tool="docker" aria-hidden="true"></i>Docker</button></li>
             <li><button type="button" class="tool-btn" data-filter="postgres" data-label="PostgreSQL"><i class="ti" data-tool="postgres" aria-hidden="true"></i>PostgreSQL</button></li>
             <li><button type="button" class="tool-btn" data-filter="supabase" data-label="Supabase"><i class="ti" data-tool="supabase" aria-hidden="true"></i>Supabase</button></li>
-            <li><button type="button" class="tool-btn" data-filter="docker" data-label="Docker"><i class="ti" data-tool="docker" aria-hidden="true"></i>Docker</button></li>
-            <li><button type="button" class="tool-btn" data-filter="gcp" data-label="GCP"><i class="ti" data-tool="gcp" aria-hidden="true"></i>GCP</button></li>
-            <li><button type="button" class="tool-btn" data-filter="aws" data-label="AWS"><i class="ti" data-tool="aws" aria-hidden="true"></i>AWS</button></li>
-            <li><button type="button" class="tool-btn" data-filter="terraform" data-label="Terraform"><i class="ti" data-tool="terraform" aria-hidden="true"></i>Terraform</button></li>
             </ul>
           </section>
           <section class="skill-group" aria-labelledby="sg-3">
-            <h3 id="sg-3">Computer Architecture</h3>
+            <h3 id="sg-3">Systems &amp; Architecture</h3>
             <ul>
-            <li><button type="button" class="tool-btn" data-filter="riscv" data-label="RISC-V"><i class="ti" data-tool="riscv" aria-hidden="true"></i>RISC-V</button></li>
+            <li class="is-core"><button type="button" class="tool-btn" data-filter="riscv" data-label="RISC-V"><i class="ti" data-tool="riscv" aria-hidden="true"></i>RISC-V<span class="visually-hidden"> (core skill)</span></button></li>
+            <li><button type="button" class="tool-btn" data-filter="linux" data-label="Linux"><i class="ti" data-tool="linux" aria-hidden="true"></i>Linux</button></li>
             <li><button type="button" class="tool-btn" data-filter="fpga" data-label="FPGA"><i class="ti" data-tool="fpga" aria-hidden="true"></i>FPGA</button></li>
             </ul>
           </section>
           <section class="skill-group" aria-labelledby="sg-4">
             <h3 id="sg-4">Engineering Practice</h3>
             <ul>
-            <li><button type="button" class="tool-btn" data-filter="git github" data-label="Git &amp; GitHub"><i class="ti" data-tool="git" aria-hidden="true"></i>Git &amp; GitHub</button></li>
-            <li><button type="button" class="tool-btn" data-filter="agile" data-label="Agile &amp; Scrum"><i class="ti" data-tool="agile" aria-hidden="true"></i>Agile &amp; Scrum</button></li>
+            <li class="is-core"><button type="button" class="tool-btn" data-filter="claudecode" data-label="Claude Code"><i class="ti" data-tool="claudecode" aria-hidden="true"></i>Claude Code<span class="visually-hidden"> (core skill)</span></button></li>
+            <li class="is-core"><button type="button" class="tool-btn" data-filter="git github" data-label="Git &amp; GitHub"><i class="ti" data-tool="git" aria-hidden="true"></i>Git &amp; GitHub<span class="visually-hidden"> (core skill)</span></button></li>
+            <li class="is-core"><button type="button" class="tool-btn" data-filter="copilot" data-label="GitHub Copilot"><i class="ti" data-tool="copilot" aria-hidden="true"></i>GitHub Copilot<span class="visually-hidden"> (core skill)</span></button></li>
+            <li class="is-core"><button type="button" class="tool-btn" data-filter="latex" data-label="LaTeX"><i class="ti" data-tool="latex" aria-hidden="true"></i>LaTeX<span class="visually-hidden"> (core skill)</span></button></li>
             <li><button type="button" class="tool-btn" data-filter="playwright" data-label="Playwright"><i class="ti" data-tool="playwright" aria-hidden="true"></i>Playwright</button></li>
-            <li><button type="button" class="tool-btn" data-filter="latex" data-label="LaTeX"><i class="ti" data-tool="latex" aria-hidden="true"></i>LaTeX</button></li>
-            <li><button type="button" class="tool-btn" data-filter="copilot" data-label="GitHub Copilot"><i class="ti" data-tool="copilot" aria-hidden="true"></i>GitHub Copilot</button></li>
+            <li><button type="button" class="tool-btn" data-filter="agile" data-label="Agile &amp; Scrum"><i class="ti" data-tool="agile" aria-hidden="true"></i>Agile &amp; Scrum</button></li>
             </ul>
           </section>
         </div>
@@ -427,8 +430,8 @@
   </footer>
 
   <!-- Main client-side behavior (toggles, banner, filters, modal) -->
-  <script src="js/tools.js?v=20261021"></script>
-  <script src="js/config.js?v=20261029"></script>
-  <script src="js/main.js?v=20261029"></script>
+  <script src="js/tools.js?v=20261022c"></script>
+  <script src="js/config.js?v=20261022"></script>
+  <script src="js/main.js?v=20261022c"></script>
 </body>
 </html>
