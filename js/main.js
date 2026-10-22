@@ -357,7 +357,8 @@ function openModal(projectId) {
 }
 
 function presentModal(compact) {
-  modal.querySelector('.modal-content').classList.toggle('is-compact', !!compact);
+  modal.querySelector('.modal-content').classList.toggle('is-compact', compact === true);
+  modal.querySelector('.modal-content').classList.toggle('is-story', compact === 'story');
   lastFocus = document.activeElement;
   modal.classList.add('is-visible');
   modal.setAttribute('aria-hidden', 'false');
@@ -371,6 +372,7 @@ function closeModal() {
   modal.classList.remove('is-visible');
   modal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
+  if (location.hash === '#story') history.replaceState(null, '', location.pathname + location.search);
   // Return focus to the control that opened the dialog
   if (wasOpen && lastFocus && document.contains(lastFocus)) lastFocus.focus();
   lastFocus = null;
@@ -526,4 +528,361 @@ window.addEventListener('keydown', e => {
       </ul>`;
     presentModal(true);
   });
+})();
+
+
+// =====================================================================
+// "Behind the portfolio": the story, a map of the places lived, and a shelf of books and albums.
+// Copy lives in index.html (#story-template); homes, books, albums and reviews in js/config.js.
+// Opens from the headshot, the footer link or #story.
+// =====================================================================
+(function () {
+  const tpl = document.getElementById('story-template');
+  if (!tpl) return;
+  const cfg = window.SITE_CONFIG || {};
+
+  // ---------------------------------------------------------------
+  // Homes: simplified vector map + list + live clocks
+  // ---------------------------------------------------------------
+  const homes = cfg.homes || [];
+  let clockTimer = null;
+
+  const years = h => h.to ? `${h.from} – ${h.to}` : h.from;
+  const place = h => `${h.name}${h.region ? ', ' + h.region : ''}`;
+  const clock = tz => {
+    try { return new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: tz }).format(new Date()).replace(' AM', ' am').replace(' PM', ' pm'); }
+    catch (e) { return ''; }
+  };
+  function km(a, b) {
+    const R = 6371, rad = d => d * Math.PI / 180;
+    const dLat = rad(b.lat - a.lat), dLon = rad(b.lon - a.lon);
+    const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dLon / 2) ** 2;
+    return 2 * R * Math.asin(Math.sqrt(h));
+  }
+
+  function mapSvg() {
+    const M = window.STORY_MAP;
+    if (!M) return '';
+    const X = lon => (lon - M.lon0) * M.k, Y = lat => (M.latN - lat) * M.k;
+    // Unique cities in order of first appearance, remembering which stops (1-based) are theirs
+    const cities = [];
+    homes.forEach((h, i) => {
+      let c = cities.find(c => c.name === h.name);
+      if (!c) { c = { ...h, nums: [] }; cities.push(c); }
+      c.nums.push(i + 1);
+    });
+    // Arcs between consecutive stops; a return trip bows the other way so out and back don't overlap
+    const seen = {};
+    const arcs = [];
+    for (let i = 1; i < homes.length; i++) {
+      const a = homes[i - 1], b = homes[i];
+      if (a.name === b.name) continue;
+      const x1 = X(a.lon), y1 = Y(a.lat), x2 = X(b.lon), y2 = Y(b.lat);
+      const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1;
+      let nx = -dy / len, ny = dx / len;
+      if (ny > 0.0001) { nx = -nx; ny = -ny; }       // bow toward the north...
+      const key = [a.name, b.name].sort().join('|');
+      const sign = (seen[key] = (seen[key] || 0) + 1) % 2 ? 1 : -1;   // ...and the other way coming back
+      const bulge = len * 0.2 * sign;
+      const cx = (x1 + x2) / 2 + nx * bulge, cy = (y1 + y2) / 2 + ny * bulge;
+      arcs.push(`<path class="m-arc" data-to="${i}" style="--i:${arcs.length}" pathLength="1" d="M${x1.toFixed(1)} ${y1.toFixed(1)}Q${cx.toFixed(1)} ${cy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}"/>`);
+    }
+    // Faint graticule
+    let grat = '';
+    for (let lon = Math.ceil(M.lon0 / 20) * 20; lon <= M.lon1; lon += 20) grat += `<line x1="${X(lon).toFixed(1)}" y1="0" x2="${X(lon).toFixed(1)}" y2="${M.H}"/>`;
+    for (let lat = Math.ceil(M.latS / 20) * 20; lat <= M.latN; lat += 20) grat += `<line x1="0" y1="${Y(lat).toFixed(1)}" x2="${M.W}" y2="${Y(lat).toFixed(1)}"/>`;
+    const now = homes[homes.length - 1] && homes[homes.length - 1].name;
+    const pos = { r: [10, 4, 'start'], l: [-10, 4, 'end'], t: [0, -11, 'middle'], b: [0, 19, 'middle'] };
+    const dots = cities.map(c => {
+      const x = X(c.lon), y = Y(c.lat), [ox, oy, anchor] = pos[c.anchor] || pos.r;
+      return `<g class="m-city${c.name === now ? ' is-now' : ''}" data-city="${escapeHtml(c.name)}">
+        <circle class="m-ring" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="8"/>
+        <circle class="m-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.6"/>
+        <text class="m-label" x="${(x + ox).toFixed(1)}" y="${(y + oy).toFixed(1)}" text-anchor="${anchor}">${escapeHtml(c.name)} <tspan class="m-nums">${c.nums.join('·')}</tspan></text>
+      </g>`;
+    }).join('');
+    return `<svg class="homes-svg" viewBox="0 0 ${M.W} ${M.H}" role="img"
+        aria-label="Map of the places I have lived, joined in the order I lived in them">
+      <rect class="m-sea" width="${M.W}" height="${M.H}"/>
+      <path class="m-land" d="${M.land}"/>
+      <path class="m-lived" d="${M.lived}"/>
+      <path class="m-borders" d="${M.borders}"/>
+      <g class="m-grat">${grat}</g>
+      <g class="m-arcs">${arcs.join('')}</g>
+      <g class="m-dots">${dots}</g>
+    </svg>`;
+  }
+
+  const PIN = '<svg class="homes-pin" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
+
+  function homesStats() {
+    const nCities = new Set(homes.map(h => h.name)).size, nCountries = new Set(homes.map(h => h.country || h.region)).size;
+    let miles = 0;
+    for (let i = 1; i < homes.length; i++) miles += km(homes[i - 1], homes[i]) * 0.621371;
+    return { nCities, nCountries, miles };
+  }
+
+  // Collapsed by default: a quiet row that opens the map
+  function homesShell() {
+    if (!homes.length) return '';
+    const { nCities, nCountries } = homesStats();
+    return `
+      <section class="homes">
+        <button type="button" class="homes-toggle" aria-expanded="false" aria-controls="homes-panel">
+          ${PIN}
+          <span class="homes-label">Where I&rsquo;ve called home</span>
+          <span class="homes-hint">${nCities} cities &middot; ${nCountries} countries</span>
+        </button>
+        <div class="homes-panel" id="homes-panel"><div class="homes-inner"></div></div>
+      </section>`;
+  }
+
+  // The map, list and caption: built on first open (which is also when the map shapes are fetched)
+  function homesInner() {
+    const { miles } = homesStats();
+    return `
+      <p class="homes-eyebrow">About ${(Math.round(miles / 100) * 100).toLocaleString('en-US')} miles between them, as the crow flies</p>
+      <div class="homes-grid">
+        <div class="homes-map" id="homes-map">${mapSvg()}</div>
+        <ol class="homes-list">
+          ${homes.map((h, i) => `
+            <li><button type="button" class="home-row" data-i="${i}" aria-pressed="false">
+              <span class="home-n" aria-hidden="true">${i + 1}</span>
+              <span class="home-name">${escapeHtml(h.name)}</span>
+              <span class="home-years">${escapeHtml(years(h))}</span>
+            </button></li>`).join('')}
+        </ol>
+      </div>
+      <p class="homes-caption" id="homes-caption" aria-live="polite"></p>`;
+  }
+
+  function setupHomes() {
+    const root = modalBody.querySelector('.homes');
+    if (!root) return;
+    const btn = root.querySelector('.homes-toggle'), inner = root.querySelector('.homes-inner');
+    let built = false;
+    btn.addEventListener('click', () => {
+      const open = !root.classList.contains('is-open');
+      const apply = () => { root.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', String(open)); };
+      if (open && !built) {
+        built = true;
+        withMap(() => {
+          if (!document.contains(inner)) return;
+          inner.innerHTML = homesInner();
+          wireHomes();
+          requestAnimationFrame(apply);   // next frame, so the panel animates open from closed
+        });
+        return;
+      }
+      apply();
+    });
+  }
+
+  function wireHomes() {
+    const root = modalBody.querySelector('.homes');
+    if (!root) return;
+    const cap = root.querySelector('#homes-caption');
+    let sel = -1;
+
+    function clocksLine() {
+      // One clock per time zone, named for the place you were last in that zone
+      const byTz = new Map();
+      homes.forEach(h => { if (h.tz) byTz.set(h.tz, h.name); });
+      const parts = Array.from(byTz, ([tz, name]) => `<strong>${clock(tz)}</strong> in ${escapeHtml(name)}`);
+      return parts.length ? `Right now it&rsquo;s ${parts.join(' &middot; ')}.` : '';
+    }
+    function paint() {
+      if (sel < 0) { cap.innerHTML = clocksLine(); return; }
+      const h = homes[sel];
+      cap.innerHTML = `<strong>${escapeHtml(place(h))}</strong> &middot; ${escapeHtml(years(h))}`
+        + (h.tz ? ` &middot; ${clock(h.tz)} there now` : '')
+        + (h.note ? `<span class="homes-note">${escapeHtml(h.note)}</span>` : '');
+    }
+    function mark(i) {   // i = stop index to emphasise, -1 for none
+      root.classList.toggle('has-active', i >= 0);
+      root.querySelectorAll('.m-arc').forEach(a => a.classList.toggle('is-on', +a.dataset.to === i));
+      root.querySelectorAll('.m-city').forEach(c => c.classList.toggle('is-on', i >= 0 && c.dataset.city === homes[i].name));
+      root.querySelectorAll('.home-row').forEach(r => r.classList.toggle('is-on', +r.dataset.i === i));
+    }
+    root.querySelectorAll('.home-row').forEach(btn => {
+      const i = +btn.dataset.i;
+      btn.addEventListener('mouseenter', () => mark(i));
+      btn.addEventListener('focus', () => mark(i));
+      btn.addEventListener('mouseleave', () => mark(sel));
+      btn.addEventListener('blur', () => mark(sel));
+      btn.addEventListener('click', () => {
+        sel = sel === i ? -1 : i;
+        root.querySelectorAll('.home-row').forEach(r => r.setAttribute('aria-pressed', String(+r.dataset.i === sel)));
+        mark(sel); paint();
+      });
+    });
+    // Tapping a dot on the map selects that city's latest stop
+    root.addEventListener('click', e => {
+      const g = e.target.closest('.m-city');
+      if (!g) return;
+      let i = -1; homes.forEach((h, k) => { if (h.name === g.dataset.city) i = k; });
+      const row = root.querySelector(`.home-row[data-i="${i}"]`);
+      if (row) row.click();
+    });
+    paint();
+    clearInterval(clockTimer);
+    clockTimer = setInterval(() => {
+      if (!modal.classList.contains('is-visible') || !document.contains(cap)) { clearInterval(clockTimer); return; }
+      paint();
+    }, 20000);
+  }
+
+  // The map shapes are a separate file (~50 KB), fetched only when the story is first opened
+  function withMap(cb) {
+    if (window.STORY_MAP || !homes.length) return cb();
+    const sc = document.createElement('script');
+    sc.src = 'js/story-map.js?v=20261026';
+    sc.onload = cb; sc.onerror = cb;
+    document.head.appendChild(sc);
+  }
+
+  // ---------------------------------------------------------------
+  // Shelf: books as spines, albums as sleeves
+  // ---------------------------------------------------------------
+  // Colours are fixed (physical objects don't change with dark mode); text colours chosen for contrast.
+  const BOOK_COLORS = [
+    { bg: '#a3182d', fg: '#ffffff' }, { bg: '#34414a', fg: '#ffffff' }, { bg: '#d9a441', fg: '#1f1b18' },
+    { bg: '#5d6b50', fg: '#ffffff' }, { bg: '#e9e1d3', fg: '#1f1b18' }, { bg: '#5b3a4a', fg: '#ffffff' }
+  ];
+  const ALBUM_COLORS = [
+    { bg: '#d9a441', fg: '#1f1b18' }, { bg: '#5d6b50', fg: '#ffffff' }, { bg: '#26211f', fg: '#f3eeea' },
+    { bg: '#34414a', fg: '#ffffff' }, { bg: '#a3182d', fg: '#ffffff' }, { bg: '#e9e1d3', fg: '#1f1b18' }
+  ];
+  const JITTER = [6, -8, 14, -2, 10, -12, 4, 0];
+  const TILT = [-3, 2, -1.5, 3, -2.5, 1];
+  const HINT = '<span class="shelf-hint">Pick something off the shelf.</span>';
+
+  // A spine / record-label colour from config (hex), with readable text picked automatically; falls back to the palette
+  function swatch(b, fallback) {
+    const m = /^#?([0-9a-f]{6})$/i.exec(String(b.color || '').trim());
+    if (!m) return fallback;
+    const n = parseInt(m[1], 16), lin = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    const L = 0.2126 * lin(n >> 16) + 0.7152 * lin((n >> 8) & 255) + 0.0722 * lin(n & 255);
+    return { bg: '#' + m[1], fg: L > 0.32 ? '#1f1b18' : '#ffffff' };
+  }
+  const books = cfg.books || [], reading = cfg.reading || [], albums = cfg.albums || [];
+  const items = [];
+  books.forEach((b, i) => items.push({ ...b, kind: 'book', c: swatch(b, BOOK_COLORS[i % BOOK_COLORS.length]), n: i }));
+  reading.forEach((b, i) => items.push({ ...b, kind: 'reading', c: swatch(b, BOOK_COLORS[(books.length + i) % BOOK_COLORS.length]), n: books.length + i }));
+  albums.forEach((b, i) => items.push({ ...b, kind: 'album', author: b.artist, c: swatch(b, ALBUM_COLORS[i % ALBUM_COLORS.length]), n: i }));
+  const idx = it => items.indexOf(it);
+  // Size a title so its longest word fits one line
+  const longest = t => Math.max(...String(t).split(/\s+/).map(w => w.length), 1);
+  const fit = (t, k, cap) => Math.min(cap, k / longest(t)).toFixed(2) + 'rem';
+  // Optional cover photo laid over the typeset cover; if the file is missing it removes itself
+  const art = b => b.image
+    ? `<img class="art" src="${escapeHtml(b.image)}" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('has-art');this.remove()">` : '';
+
+  function spineHtml(b) {
+    const h = Math.max(150 + JITTER[b.n % JITTER.length], 64 + Math.min(b.title.length, 22) * 7.4); // long titles wrap to two columns
+    const w = [46, 42, 52, 44, 48, 40][b.n % 6];
+    const leaning = b.kind === 'reading';
+    return `
+      <li class="${leaning ? 'is-leaning' : ''}" style="--h:${Math.round(h)}px; --w:${w}px; --bg:${b.c.bg}; --fg:${b.c.fg}">
+        <button type="button" class="spine" data-i="${idx(b)}" aria-pressed="false"
+          aria-label="${escapeHtml(b.title)}${b.author ? ', ' + escapeHtml(b.author) : ''}${leaning ? ' (reading now)' : ''}">
+          <span class="spine-title">${escapeHtml(b.title)}</span>
+        </button>
+      </li>`;
+  }
+
+  function sleeveHtml(b) {
+    return `
+      <li style="--bg:${b.c.bg}; --fg:${b.c.fg}; --rot:${TILT[b.n % TILT.length]}deg; --fs:${fit(b.title, 8.1, 0.9)}">
+        <button type="button" class="sleeve" data-i="${idx(b)}" aria-pressed="false"
+          aria-label="${escapeHtml(b.title)}, ${escapeHtml(b.author || '')} (album)">
+          <span class="disc" aria-hidden="true"></span>
+          <span class="sleeve-face${b.image ? ' has-art' : ''}" aria-hidden="true">
+            <span class="sleeve-artist">${escapeHtml(b.author || '')}</span>
+            <span class="sleeve-title">${escapeHtml(b.title)}</span>
+            ${art(b)}
+          </span>
+        </button>
+      </li>`;
+  }
+
+  function shelfHtml() {
+    const bookItems = items.filter(x => x.kind !== 'album');
+    const albumItems = items.filter(x => x.kind === 'album');
+    if (!items.length) return '';
+    return `
+      <div class="story-shelf">
+        <div class="bookcase">
+          ${bookItems.length ? `<div class="shelf-level"><ul class="shelf">${bookItems.map(spineHtml).join('')}</ul><div class="shelf-board" aria-hidden="true"></div></div>` : ''}
+          ${albumItems.length ? `<div class="shelf-level is-records"><ul class="crate">${albumItems.map(sleeveHtml).join('')}</ul><div class="shelf-board" aria-hidden="true"></div></div>` : ''}
+        </div>
+        <div class="shelf-detail is-empty" id="shelf-detail" aria-live="polite">${HINT}</div>
+      </div>`;
+  }
+
+  function detailHtml(b) {
+    const eyebrow = b.tag || (b.kind === 'reading' ? 'Reading now' : b.kind === 'album' ? 'Album' : 'Book');
+    const face = b.kind === 'album' ? `
+      <div class="record" style="--bg:${b.c.bg}; --fg:${b.c.fg}; --fs:${fit(b.title, 11, 1.05)}" aria-hidden="true">
+        <div class="record-slide"><div class="record-disc"><span class="record-label"></span></div></div>
+        <div class="record-sleeve${b.image ? ' has-art' : ''}">
+          <span class="cover-author">${escapeHtml(b.author || '')}</span>
+          <span class="cover-title">${escapeHtml(b.title)}</span>
+          ${art(b)}
+        </div>
+      </div>` : `
+      <div class="cover${b.image ? ' has-art' : ''}" style="--bg:${b.c.bg}; --fg:${b.c.fg}" aria-hidden="true">
+        <span class="cover-author">${escapeHtml(b.author || '')}</span>
+        <span class="cover-title">${escapeHtml(b.title)}</span>
+        <span class="cover-rule"></span>
+        ${art(b)}
+      </div>`;
+    return `
+      ${face}
+      <div class="detail-text">
+        <span class="detail-tag">${escapeHtml(eyebrow)}</span>
+        <span class="shelf-detail-title">${escapeHtml(b.title)}</span>
+        <span class="shelf-detail-meta">${escapeHtml(b.author || '')}</span>
+        ${b.review ? `<span class="review-label">My take</span><span class="review">${escapeHtml(b.review)}</span>` : ''}
+      </div>`;
+  }
+
+  function wireShelf() {
+    const bookcase = modalBody.querySelector('.bookcase');
+    const detail = modalBody.querySelector('#shelf-detail');
+    if (!bookcase || !detail) return;
+    bookcase.addEventListener('click', e => {
+      const btn = e.target.closest('.spine, .sleeve');
+      if (!btn) return;
+      const wasOn = btn.getAttribute('aria-pressed') === 'true';
+      bookcase.querySelectorAll('[aria-pressed]').forEach(x => x.setAttribute('aria-pressed', 'false'));
+      if (wasOn) { detail.className = 'shelf-detail is-empty'; detail.innerHTML = HINT; return; }
+      btn.setAttribute('aria-pressed', 'true');
+      detail.className = 'shelf-detail';
+      detail.innerHTML = detailHtml(items[+btn.dataset.i]);
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // Open / close
+  // ---------------------------------------------------------------
+  function openStory() {
+    modalBody.innerHTML = tpl.innerHTML;
+    const slot = modalBody.querySelector('#shelf-slot');
+    if (slot) slot.innerHTML = shelfHtml();
+    wireShelf();
+    const hs = modalBody.querySelector('#homes-slot');
+    if (hs) { hs.innerHTML = homesShell(); setupHomes(); }
+    presentModal('story');
+    if (location.hash !== '#story') history.replaceState(null, '', '#story');
+  }
+
+  ['story-photo', 'story-link'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('click', openStory);
+  });
+  window.addEventListener('hashchange', () => {
+    if (location.hash === '#story' && !modal.classList.contains('is-visible')) openStory();
+  });
+  if (location.hash === '#story') openStory();
 })();

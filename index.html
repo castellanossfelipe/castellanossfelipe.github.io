@@ -16,13 +16,15 @@
   <!-- Web fonts and stylesheets -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:wght@500;600&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&display=swap"
         rel="stylesheet">
-  <link rel="stylesheet" href="icons.css?v=20261020">
-  <link rel="stylesheet" href="style.css?v=20261020">
+  <link rel="stylesheet" href="icons.css?v=20261021">
+  <link rel="stylesheet" href="style.css?v=20261030">
 </head>
 
 <body>
+  <!-- TODO (outstanding): add the 3 resume PDFs to /resumes and the book/album reviews in js/config.js. See the TODO block at the top of js/config.js. -->
+
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- Sticky top banner (appears after scrolling; hidden from tab order until shown) -->
@@ -47,7 +49,10 @@
     <!-- Hero / intro -->
     <header class="hero">
       <div class="profile-pic">
-        <img src="images/profile.jpg?v=20261020" alt="Headshot of Felipe Castellanos" width="128" height="128" class="profile-pic-wrapper">
+        <!-- Quiet door to the personal story: no visible label on purpose. The footer link is the labelled route. -->
+        <button type="button" class="story-trigger" id="story-photo" aria-haspopup="dialog" aria-label="A little more about me">
+          <img src="images/profile.jpg?v=20261020" alt="Headshot of Felipe Castellanos" width="128" height="128" class="profile-pic-wrapper">
+        </button>
       </div>    
       <h1>Felipe Castellanos</h1>
       <p class="location">Davidson, NC &bull; Davidson College '27</p>
@@ -346,6 +351,52 @@
     </div>
   </div>
 
+  <!--
+    Personal story. Edit the words here; the book list and "reading now" live in js/config.js.
+    It opens from the headshot, the footer link, or the address #story.
+  -->
+  <template id="story-template">
+    <article class="story">
+      <h2 id="modal-title">Behind the portfolio</h2>
+      <p class="story-deck">How I got here</p>
+
+      <!-- The places I have lived: a map + list, built in js/main.js from SITE_CONFIG.homes (js/config.js); hidden until the reader opens it -->
+      <div id="homes-slot"></div>
+
+      <div class="tale">
+        <figure class="polaroid">
+          <img src="images/story-kid-web.jpg" width="720" height="960" alt="Felipe as a young child" loading="lazy"
+               onerror="this.closest('figure').remove()">
+          <figcaption>Me, a long time ago.</figcaption>
+        </figure>
+
+        <p>I grew up in Bogot&aacute;, Colombia. In my after-school robotics club we built small circuits and small
+        robots, and the best part was that they actually <em>worked</em>. I was hooked.</p>
+
+        <p>By then I was the unofficial IT department of my classroom, the kid teachers called whenever something
+        broke. One day my dad took me to work, and I told everyone there that I loved computers. The IT team gave
+        me an old laptop, probably hoping I would learn something from it. I was about seven, and I was so excited
+        to finally see what a computer looks like on the inside that I took it completely apart without once
+        wondering how it would go back together. It didn&rsquo;t. I think they had to throw it away.</p>
+
+        <p>It turns out I never stopped. At Davidson I&rsquo;m building a RISC-V processor on an FPGA, which is
+        taking a computer apart all over again, except this time I&rsquo;m putting it back together on purpose.</p>
+      </div>
+
+      <div class="carry">
+        <h3>What I carry with me</h3>
+
+        <h4>Things that might surprise you</h4>
+        <p>I speak French. I use AI every day and I&rsquo;m still wary of it.<!-- Add more here: "and more" --></p>
+
+        <h4>On repeat, on the nightstand</h4>
+        <p>I always read two books at a time, because there is so much to read and so little life to read it in.
+        And when I listen to music, I <em>just listen</em>, with nothing else going on: boleros, jazz and classical.</p>
+        <div id="shelf-slot"></div>
+      </div>
+    </article>
+  </template>
+
   <!-- Global footer with contact links -->
   <footer id="contact">
     &copy; 2026 Felipe Castellanos &bull;
@@ -357,12 +408,13 @@
     <a href="https://github.com/castellanossfelipe"
        target="_blank" rel="noopener noreferrer">
       GitHub
-    </a>
+    </a> &bull;
+    <button type="button" class="link-btn" id="story-link" aria-haspopup="dialog">Behind the portfolio</button>
   </footer>
 
   <!-- Main client-side behavior (toggles, banner, filters, modal) -->
-  <script src="js/tools.js?v=20261020"></script>
-  <script src="js/config.js?v=20261020"></script>
-  <script src="js/main.js?v=20261020"></script>
+  <script src="js/tools.js?v=20261021"></script>
+  <script src="js/config.js?v=20261029"></script>
+  <script src="js/main.js?v=20261029"></script>
 </body>
 </html>
