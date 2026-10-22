@@ -44,9 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   } // <-- this closing brace for setupToggle was missing
 
-  // Apply toggle behavior to coursework and skills lists
+  // Apply toggle behavior to the coursework list (skills are grouped and always fully shown)
   setupToggle("#course-list", "#toggle-courses", 3);
-  setupToggle("#skills-list", "#toggle-skills", 10);   // top 10 shown; More / search reveals the rest
 
   // ========= Featured projects “More projects” / “Show less” =========
   const title = document.getElementById("projects-title");
@@ -124,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // =====================================================================
 // Project data. Each card: title, meta (role/context), summary (one line),
 // points ([label, text] pairs), tools (keys from js/tools.js), tilePills
-// (what the card shows; items are tool keys or {text}), link, private.
+// (what the card shows; items are tool keys or {text}), topics (concepts, not tools), link, private.
 // =====================================================================
 const PRIVATE_NOTE = "Source code and project data are not public, to protect client confidentiality.";
 
@@ -140,7 +139,7 @@ const projectData = {
       ["Status", "In monthly production use."]
     ],
     tools: ["python", "whisper", "bm25", "groq", "windows"],
-    tilePills: ["python", "whisper", "groq"],
+    tilePills: ["python", {text: "Speech-to-text"}, {text: "Retrieval"}],
     link: null, private: true
   },
   "commission-tracker": {
@@ -154,7 +153,7 @@ const projectData = {
       ["Result", "~100 clients, $0 ongoing hosting cost, 33 unit tests and 28 Playwright end-to-end tests."]
     ],
     tools: ["gcp", "docker", "nocodb", "caddy", "python", "playwright"],
-    tilePills: ["gcp", "docker", "nocodb"],
+    tilePills: ["gcp", "docker", "python"],
     link: null, private: true
   },
   "secure-file-transfer": {
@@ -167,7 +166,7 @@ const projectData = {
       ["Size", "About 3,100 lines of Python."]
     ],
     tools: ["python", "pycryptodome", "sockets", "aes"],
-    tilePills: ["python", "pycryptodome"],
+    tilePills: ["python", {text: "Applied cryptography"}],
     link: "https://github.com/jackbray287/Cryptography"
   },
   "airport-connectivity-map": {
@@ -179,8 +178,9 @@ const projectData = {
       ["Data", "OpenFlights: 7,698 airports and 67,663 routes, cleaned down to ~3,400 route-serving airports."],
       ["My part", "All data processing, tooling choices and accessibility checks. My partner wrote the report."]
     ],
-    tools: ["d3", "leaflet", "javascript", "python", "datacleaning"],
-    tilePills: ["d3", "leaflet", "datacleaning"],
+    tools: ["d3", "leaflet", "javascript", "python"],
+    topics: ["Data cleaning", "Accessibility"],
+    tilePills: ["d3", "leaflet", {text: "Data cleaning"}],
     link: "projects/airport-vis/index.html",
     image: { src: "images/airport-visualization.webp", width: 1200, height: 662, alt: "Bubble map of the world where each airport is a circle sized and colored by its number of routes." }
   },
@@ -219,8 +219,9 @@ const projectData = {
       ["Protocol", "Extends the Priority Ceiling Protocol so a low-criticality task can be safely aborted at a mode change (the PCP-A)."],
       ["Analysis", "Bounds the blocking this causes, then uses the bounds in a heuristic that performed well against simpler approaches."]
     ],
-    tools: ["realtime", "schedulability", "latex"],
-    tilePills: ["realtime", {text: "RTNS 2026"}, {text: "First author"}],
+    tools: ["latex"],
+    topics: ["Real-time systems", "Schedulability analysis"],
+    tilePills: [{text: "Real-time systems"}, {text: "RTNS 2026"}, {text: "First author"}],
     link: null
   }
 };
@@ -289,7 +290,7 @@ document.querySelectorAll('#course-list li[data-tools]').forEach(li => {
 (function () {
   const input = document.getElementById('skill-search');
   const list = document.getElementById('skills-list');
-  const toggle = document.getElementById('toggle-skills');
+  const groups = Array.from(list.querySelectorAll('.skill-group'));
   const empty = document.getElementById('skill-empty');
   if (!input || !list) return;
   const items = Array.from(list.querySelectorAll('li'));
@@ -307,7 +308,7 @@ document.querySelectorAll('#course-list li[data-tools]').forEach(li => {
       li.classList.toggle('search-miss', miss);
       if (!miss) hits++;
     });
-    if (toggle) toggle.classList.toggle('hidden', q !== '');
+    groups.forEach(g => g.classList.toggle('search-miss', q !== '' && !g.querySelector('li:not(.search-miss)')));
     empty.hidden = !(q !== '' && hits === 0);
   });
 })();
@@ -349,6 +350,7 @@ function openModal(projectId) {
     <ul class="modal-points">${points}</ul>
     <div class="modal-section-label">Tools &amp; skills <span>(click one to see everything that uses it)</span></div>
     <div class="modal-pills">${data.tools.map(filterPill).join('')}</div>
+    ${data.topics ? `<div class="modal-section-label">Topics</div><div class="modal-pills">${data.topics.map(t => `<span class="pill">${escapeHtml(t)}</span>`).join('')}</div>` : ''}
     ${buttonHtml}
     ${noteHtml}
   `;

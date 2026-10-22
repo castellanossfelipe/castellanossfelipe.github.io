@@ -274,14 +274,14 @@
           <li data-status="in-progress" data-tools="systemverilog riscv fpga ecp5 yosys python">Computer Architecture & FPGAs</li>
           <li data-tools="sql">Database Systems</li>
           <li data-tools="python">Real-Time Systems</li>
-          <li data-tools="racket">Discrete Mathematics</li>
           <li data-tools="python pycryptodome">Applied Cryptography</li>
-          <li>Combinatorial Optimization</li>
           <li data-tools="d3">Data Visualization & Design</li>
-          <li data-status="in-progress" data-tools="r rstudio">Introduction to Statistics</li>
+          <li data-tools="racket">Discrete Mathematics</li>
+          <li>Combinatorial Optimization</li>
           <li>Linear Algebra</li>
-          <li data-status="in-progress" data-tools="python">Mathematical Modeling</li>
           <li>Multivariable Calculus</li>
+          <li data-status="in-progress" data-tools="r">Introduction to Statistics</li>
+          <li data-status="in-progress" data-tools="python">Mathematical Modeling</li>
         </ul>
         <button id="toggle-courses" class="toggle-btn" type="button" aria-expanded="false" aria-controls="course-list">
           More
@@ -294,46 +294,60 @@
         <input type="search" id="skill-search" class="skill-search" placeholder="Search skills &amp; tools" name="skill-search"
                aria-label="Search skills and tools" autocomplete="off">
         <p id="skill-empty" class="skill-empty" hidden>No matching skills or tools.</p>
-        <ul id="skills-list">
-          <li><button type="button" class="tool-btn" data-filter="python" data-label="Python"><i class="ti" data-tool="python" aria-hidden="true"></i>Python</button></li>
-          <li><button type="button" class="tool-btn" data-filter="java" data-label="Java"><i class="ti" data-tool="java" aria-hidden="true"></i>Java</button></li>
-          <li><button type="button" class="tool-btn" data-filter="aws" data-label="AWS"><i class="ti" data-tool="aws" aria-hidden="true"></i>AWS</button></li>
-          <li><button type="button" class="tool-btn" data-filter="terraform" data-label="Terraform"><i class="ti" data-tool="terraform" aria-hidden="true"></i>Terraform</button></li>
-          <li><button type="button" class="tool-btn" data-filter="sql" data-label="SQL"><i class="ti" data-tool="sql" aria-hidden="true"></i>SQL</button></li>
-          <li><button type="button" class="tool-btn" data-filter="git github" data-label="Git & GitHub"><i class="ti" data-tool="git" aria-hidden="true"></i>Git &amp; GitHub</button></li>
-          <li><button type="button" class="tool-btn" data-filter="copilot" data-label="GitHub Copilot"><i class="ti" data-tool="copilot" aria-hidden="true"></i>GitHub Copilot</button></li>
-          <li><button type="button" class="tool-btn" data-filter="c" data-label="C"><i class="ti" data-tool="c" aria-hidden="true"></i>C</button></li>
-          <li><button type="button" class="tool-btn" data-filter="systemverilog" data-label="SystemVerilog"><i class="ti" data-tool="systemverilog" aria-hidden="true"></i>SystemVerilog</button></li>
-          <li><button type="button" class="tool-btn" data-filter="agile" data-label="Agile & Scrum"><i class="ti" data-tool="agile" aria-hidden="true"></i>Agile &amp; Scrum</button></li>
-          <li><button type="button" class="tool-btn" data-filter="javascript" data-label="JavaScript"><i class="ti" data-tool="javascript" aria-hidden="true"></i>JavaScript</button></li>
-          <li><button type="button" class="tool-btn" data-filter="html css" data-label="HTML & CSS"><i class="ti" data-tool="html" aria-hidden="true"></i>HTML &amp; CSS</button></li>
-          <li><button type="button" class="tool-btn" data-filter="react" data-label="React"><i class="ti" data-tool="react" aria-hidden="true"></i>React</button></li>
-          <li><button type="button" class="tool-btn" data-filter="docker" data-label="Docker"><i class="ti" data-tool="docker" aria-hidden="true"></i>Docker</button></li>
-          <li><button type="button" class="tool-btn" data-filter="gcp" data-label="GCP"><i class="ti" data-tool="gcp" aria-hidden="true"></i>GCP</button></li>
-          <li><button type="button" class="tool-btn" data-filter="postgres" data-label="PostgreSQL"><i class="ti" data-tool="postgres" aria-hidden="true"></i>PostgreSQL</button></li>
-          <li><button type="button" class="tool-btn" data-filter="supabase" data-label="Supabase"><i class="ti" data-tool="supabase" aria-hidden="true"></i>Supabase</button></li>
-          <li><button type="button" class="tool-btn" data-filter="riscv" data-label="RISC-V"><i class="ti" data-tool="riscv" aria-hidden="true"></i>RISC-V</button></li>
-          <li><button type="button" class="tool-btn" data-filter="fpga" data-label="FPGA"><i class="ti" data-tool="fpga" aria-hidden="true"></i>FPGA</button></li>
-          <li><button type="button" class="tool-btn" data-filter="playwright" data-label="Playwright"><i class="ti" data-tool="playwright" aria-hidden="true"></i>Playwright</button></li>
-          <li><button type="button" class="tool-btn" data-filter="d3" data-label="D3.js"><i class="ti" data-tool="d3" aria-hidden="true"></i>D3.js</button></li>
-          <li><button type="button" class="tool-btn" data-filter="leaflet" data-label="Leaflet.js"><i class="ti" data-tool="leaflet" aria-hidden="true"></i>Leaflet.js</button></li>
-          <li><button type="button" class="tool-btn" data-filter="vite" data-label="Vite"><i class="ti" data-tool="vite" aria-hidden="true"></i>Vite</button></li>
-          <li><button type="button" class="tool-btn" data-filter="tailwind" data-label="Tailwind CSS"><i class="ti" data-tool="tailwind" aria-hidden="true"></i>Tailwind CSS</button></li>
-          <li><button type="button" class="tool-btn" data-filter="zustand" data-label="Zustand"><i class="ti" data-tool="zustand" aria-hidden="true"></i>Zustand</button></li>
-          <li><button type="button" class="tool-btn" data-filter="nocodb" data-label="NocoDB"><i class="ti" data-tool="nocodb" aria-hidden="true"></i>NocoDB</button></li>
-          <li><button type="button" class="tool-btn" data-filter="caddy" data-label="Caddy"><i class="ti" data-tool="caddy" aria-hidden="true"></i>Caddy</button></li>
-          <li><button type="button" class="tool-btn" data-filter="whisper" data-label="Whisper"><i class="ti" data-tool="whisper" aria-hidden="true"></i>Whisper</button></li>
-          <li><button type="button" class="tool-btn" data-filter="groq" data-label="Groq API"><i class="ti" data-tool="groq" aria-hidden="true"></i>Groq API</button></li>
-          <li><button type="button" class="tool-btn" data-filter="bm25" data-label="BM25"><i class="ti" data-tool="bm25" aria-hidden="true"></i>BM25</button></li>
-          <li><button type="button" class="tool-btn" data-filter="pycryptodome" data-label="PyCryptodome"><i class="ti" data-tool="pycryptodome" aria-hidden="true"></i>PyCryptodome</button></li>
-          <li><button type="button" class="tool-btn" data-filter="r" data-label="R"><i class="ti" data-tool="r" aria-hidden="true"></i>R</button></li>
-          <li><button type="button" class="tool-btn" data-filter="rstudio" data-label="RStudio"><i class="ti" data-tool="rstudio" aria-hidden="true"></i>RStudio</button></li>
-          <li><button type="button" class="tool-btn" data-filter="racket" data-label="Racket"><i class="ti" data-tool="racket" aria-hidden="true"></i>Racket</button></li>
-          <li><button type="button" class="tool-btn" data-filter="latex" data-label="LaTeX"><i class="ti" data-tool="latex" aria-hidden="true"></i>LaTeX</button></li>
-        </ul>
-        <button id="toggle-skills" class="toggle-btn" type="button" aria-expanded="false" aria-controls="skills-list">
-          More
-        </button>
+        <div id="skills-list">
+          <section class="skill-group" aria-labelledby="sg-0">
+            <h3 id="sg-0">Languages</h3>
+            <ul>
+            <li><button type="button" class="tool-btn" data-filter="python" data-label="Python"><i class="ti" data-tool="python" aria-hidden="true"></i>Python</button></li>
+            <li><button type="button" class="tool-btn" data-filter="java" data-label="Java"><i class="ti" data-tool="java" aria-hidden="true"></i>Java</button></li>
+            <li><button type="button" class="tool-btn" data-filter="javascript" data-label="JavaScript"><i class="ti" data-tool="javascript" aria-hidden="true"></i>JavaScript</button></li>
+            <li><button type="button" class="tool-btn" data-filter="c" data-label="C"><i class="ti" data-tool="c" aria-hidden="true"></i>C</button></li>
+            <li><button type="button" class="tool-btn" data-filter="sql" data-label="SQL"><i class="ti" data-tool="sql" aria-hidden="true"></i>SQL</button></li>
+            <li><button type="button" class="tool-btn" data-filter="systemverilog" data-label="SystemVerilog"><i class="ti" data-tool="systemverilog" aria-hidden="true"></i>SystemVerilog</button></li>
+            <li><button type="button" class="tool-btn" data-filter="racket" data-label="Racket"><i class="ti" data-tool="racket" aria-hidden="true"></i>Racket</button></li>
+            <li><button type="button" class="tool-btn" data-filter="r" data-label="R"><i class="ti" data-tool="r" aria-hidden="true"></i>R</button></li>
+            </ul>
+          </section>
+          <section class="skill-group" aria-labelledby="sg-1">
+            <h3 id="sg-1">Web &amp; Data Visualization</h3>
+            <ul>
+            <li><button type="button" class="tool-btn" data-filter="html css" data-label="HTML &amp; CSS"><i class="ti" data-tool="html" aria-hidden="true"></i>HTML &amp; CSS</button></li>
+            <li><button type="button" class="tool-btn" data-filter="react" data-label="React"><i class="ti" data-tool="react" aria-hidden="true"></i>React</button></li>
+            <li><button type="button" class="tool-btn" data-filter="d3" data-label="D3.js"><i class="ti" data-tool="d3" aria-hidden="true"></i>D3.js</button></li>
+            <li><button type="button" class="tool-btn" data-filter="leaflet" data-label="Leaflet.js"><i class="ti" data-tool="leaflet" aria-hidden="true"></i>Leaflet.js</button></li>
+            <li><button type="button" class="tool-btn" data-filter="vite" data-label="Vite"><i class="ti" data-tool="vite" aria-hidden="true"></i>Vite</button></li>
+            <li><button type="button" class="tool-btn" data-filter="tailwind" data-label="Tailwind CSS"><i class="ti" data-tool="tailwind" aria-hidden="true"></i>Tailwind CSS</button></li>
+            </ul>
+          </section>
+          <section class="skill-group" aria-labelledby="sg-2">
+            <h3 id="sg-2">Data &amp; Cloud</h3>
+            <ul>
+            <li><button type="button" class="tool-btn" data-filter="postgres" data-label="PostgreSQL"><i class="ti" data-tool="postgres" aria-hidden="true"></i>PostgreSQL</button></li>
+            <li><button type="button" class="tool-btn" data-filter="supabase" data-label="Supabase"><i class="ti" data-tool="supabase" aria-hidden="true"></i>Supabase</button></li>
+            <li><button type="button" class="tool-btn" data-filter="docker" data-label="Docker"><i class="ti" data-tool="docker" aria-hidden="true"></i>Docker</button></li>
+            <li><button type="button" class="tool-btn" data-filter="gcp" data-label="GCP"><i class="ti" data-tool="gcp" aria-hidden="true"></i>GCP</button></li>
+            <li><button type="button" class="tool-btn" data-filter="aws" data-label="AWS"><i class="ti" data-tool="aws" aria-hidden="true"></i>AWS</button></li>
+            <li><button type="button" class="tool-btn" data-filter="terraform" data-label="Terraform"><i class="ti" data-tool="terraform" aria-hidden="true"></i>Terraform</button></li>
+            </ul>
+          </section>
+          <section class="skill-group" aria-labelledby="sg-3">
+            <h3 id="sg-3">Computer Architecture</h3>
+            <ul>
+            <li><button type="button" class="tool-btn" data-filter="riscv" data-label="RISC-V"><i class="ti" data-tool="riscv" aria-hidden="true"></i>RISC-V</button></li>
+            <li><button type="button" class="tool-btn" data-filter="fpga" data-label="FPGA"><i class="ti" data-tool="fpga" aria-hidden="true"></i>FPGA</button></li>
+            </ul>
+          </section>
+          <section class="skill-group" aria-labelledby="sg-4">
+            <h3 id="sg-4">Engineering Practice</h3>
+            <ul>
+            <li><button type="button" class="tool-btn" data-filter="git github" data-label="Git &amp; GitHub"><i class="ti" data-tool="git" aria-hidden="true"></i>Git &amp; GitHub</button></li>
+            <li><button type="button" class="tool-btn" data-filter="agile" data-label="Agile &amp; Scrum"><i class="ti" data-tool="agile" aria-hidden="true"></i>Agile &amp; Scrum</button></li>
+            <li><button type="button" class="tool-btn" data-filter="playwright" data-label="Playwright"><i class="ti" data-tool="playwright" aria-hidden="true"></i>Playwright</button></li>
+            <li><button type="button" class="tool-btn" data-filter="latex" data-label="LaTeX"><i class="ti" data-tool="latex" aria-hidden="true"></i>LaTeX</button></li>
+            <li><button type="button" class="tool-btn" data-filter="copilot" data-label="GitHub Copilot"><i class="ti" data-tool="copilot" aria-hidden="true"></i>GitHub Copilot</button></li>
+            </ul>
+          </section>
+        </div>
       </div>
     </section>
   </main>

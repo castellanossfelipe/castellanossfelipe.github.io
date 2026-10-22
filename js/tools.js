@@ -245,23 +245,5 @@ const TOOLS = {
  "r": {
   "label": "R",
   "aliases": []
- },
- "rstudio": {
-  "label": "RStudio",
-  "aliases": [
-   "RStudio"
-  ]
- },
- "datacleaning": {
-  "label": "Data cleaning",
-  "aliases": []
- },
- "realtime": {
-  "label": "Real-Time Systems",
-  "aliases": []
- },
- "schedulability": {
-  "label": "Schedulability Analysis",
-  "aliases": []
  }
 };

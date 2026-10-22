@@ -185,7 +185,9 @@ li { margin-bottom: 0.55rem; }
   font-size: 0.9rem; white-space: nowrap;
   border: 1px solid var(--border);
 }
-#skills-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+#skills-list { display: grid; gap: 1.25rem; }
+.skill-group h3 { margin: 0 0 0.5rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.skill-group ul { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 #skills-list li { padding: 0; margin: 0; }
 #skills-list li .tool-btn,
 .pill.tool-pill {
@@ -289,8 +291,7 @@ button.pill.tool-pill { padding: 0.35rem 0.8rem 0.35rem 0.65rem; border: 1px sol
 .skill-search::placeholder { color: var(--muted); }
 .skill-search:focus-visible { border-color: var(--accent); }
 .skill-empty { color: var(--muted); font-size: 0.95rem; margin: 0 0 0.5rem; }
-#skills-list.searching li.hidden { display: inline-flex !important; }
-#skills-list.searching li.search-miss { display: none !important; }
+#skills-list li.search-miss, #skills-list .skill-group.search-miss { display: none !important; }
 
 /* ========= Tool tags on lab rows & inline mentions ========= */
 .tool-tag {
@@ -769,3 +770,6 @@ footer a { display: inline-block; padding: 0.3rem 0.15rem; }
   .record { --s: 96px; --k: 0.8; }
   .record-sleeve { padding: 0.55rem 0.6rem; }
 }
+
+/* Modal: spacing between the tools row and the topics row */
+.modal-pills + .modal-section-label { margin-top: 1rem; }
