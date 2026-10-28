@@ -549,7 +549,14 @@ window.addEventListener('keydown', e => {
   const homes = cfg.homes || [];
   let clockTimer = null;
 
-  const years = h => h.to ? `${h.from} – ${h.to}` : h.from;
+  // One entry per city, alphabetical: the map shows where, not when or in what order
+  const cities = [];
+  homes.forEach(h => {
+    const c = cities.find(c => c.name === h.name);
+    if (c) Object.assign(c, h, { anchor: c.anchor }); else cities.push({ ...h });
+  });
+  cities.sort((a, b) => a.name.localeCompare(b.name, 'en'));
+  const nowCity = homes.length ? homes[homes.length - 1].name : '';
   const place = h => `${h.name}${h.region ? ', ' + h.region : ''}`;
   const clock = tz => {
     try { return new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: tz }).format(new Date()).replace(' AM', ' am').replace(' PM', ' pm'); }
@@ -566,51 +573,27 @@ window.addEventListener('keydown', e => {
     const M = window.STORY_MAP;
     if (!M) return '';
     const X = lon => (lon - M.lon0) * M.k, Y = lat => (M.latN - lat) * M.k;
-    // Unique cities in order of first appearance, remembering which stops (1-based) are theirs
-    const cities = [];
-    homes.forEach((h, i) => {
-      let c = cities.find(c => c.name === h.name);
-      if (!c) { c = { ...h, nums: [] }; cities.push(c); }
-      c.nums.push(i + 1);
-    });
-    // Arcs between consecutive stops; a return trip bows the other way so out and back don't overlap
-    const seen = {};
-    const arcs = [];
-    for (let i = 1; i < homes.length; i++) {
-      const a = homes[i - 1], b = homes[i];
-      if (a.name === b.name) continue;
-      const x1 = X(a.lon), y1 = Y(a.lat), x2 = X(b.lon), y2 = Y(b.lat);
-      const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1;
-      let nx = -dy / len, ny = dx / len;
-      if (ny > 0.0001) { nx = -nx; ny = -ny; }       // bow toward the north...
-      const key = [a.name, b.name].sort().join('|');
-      const sign = (seen[key] = (seen[key] || 0) + 1) % 2 ? 1 : -1;   // ...and the other way coming back
-      const bulge = len * 0.2 * sign;
-      const cx = (x1 + x2) / 2 + nx * bulge, cy = (y1 + y2) / 2 + ny * bulge;
-      arcs.push(`<path class="m-arc" data-to="${i}" style="--i:${arcs.length}" pathLength="1" d="M${x1.toFixed(1)} ${y1.toFixed(1)}Q${cx.toFixed(1)} ${cy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}"/>`);
-    }
     // Faint graticule
     let grat = '';
     for (let lon = Math.ceil(M.lon0 / 20) * 20; lon <= M.lon1; lon += 20) grat += `<line x1="${X(lon).toFixed(1)}" y1="0" x2="${X(lon).toFixed(1)}" y2="${M.H}"/>`;
     for (let lat = Math.ceil(M.latS / 20) * 20; lat <= M.latN; lat += 20) grat += `<line x1="0" y1="${Y(lat).toFixed(1)}" x2="${M.W}" y2="${Y(lat).toFixed(1)}"/>`;
-    const now = homes[homes.length - 1] && homes[homes.length - 1].name;
     const pos = { r: [10, 4, 'start'], l: [-10, 4, 'end'], t: [0, -11, 'middle'], b: [0, 19, 'middle'] };
     const dots = cities.map(c => {
       const x = X(c.lon), y = Y(c.lat), [ox, oy, anchor] = pos[c.anchor] || pos.r;
-      return `<g class="m-city${c.name === now ? ' is-now' : ''}" data-city="${escapeHtml(c.name)}">
+      return `<g class="m-city${c.name === nowCity ? ' is-now' : ''}" data-city="${escapeHtml(c.name)}">
+        <circle class="m-hit" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="14"/>
         <circle class="m-ring" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="8"/>
         <circle class="m-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.6"/>
-        <text class="m-label" x="${(x + ox).toFixed(1)}" y="${(y + oy).toFixed(1)}" text-anchor="${anchor}">${escapeHtml(c.name)} <tspan class="m-nums">${c.nums.join('·')}</tspan></text>
+        <text class="m-label" x="${(x + ox).toFixed(1)}" y="${(y + oy).toFixed(1)}" text-anchor="${anchor}">${escapeHtml(c.name)}</text>
       </g>`;
     }).join('');
     return `<svg class="homes-svg" viewBox="0 0 ${M.W} ${M.H}" role="img"
-        aria-label="Map of the places I have lived, joined in the order I lived in them">
+        aria-label="Map of the places I have lived: ${cities.map(c => escapeHtml(c.name)).join(', ')}">
       <rect class="m-sea" width="${M.W}" height="${M.H}"/>
       <path class="m-land" d="${M.land}"/>
       <path class="m-lived" d="${M.lived}"/>
       <path class="m-borders" d="${M.borders}"/>
       <g class="m-grat">${grat}</g>
-      <g class="m-arcs">${arcs.join('')}</g>
       <g class="m-dots">${dots}</g>
     </svg>`;
   }
@@ -618,10 +601,7 @@ window.addEventListener('keydown', e => {
   const PIN = '<svg class="homes-pin" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
 
   function homesStats() {
-    const nCities = new Set(homes.map(h => h.name)).size, nCountries = new Set(homes.map(h => h.country || h.region)).size;
-    let miles = 0;
-    for (let i = 1; i < homes.length; i++) miles += km(homes[i - 1], homes[i]) * 0.621371;
-    return { nCities, nCountries, miles };
+    return { nCities: cities.length, nCountries: new Set(cities.map(h => h.country || h.region)).size };
   }
 
   // Collapsed by default: a quiet row that opens the map
@@ -641,19 +621,16 @@ window.addEventListener('keydown', e => {
 
   // The map, list and caption: built on first open (which is also when the map shapes are fetched)
   function homesInner() {
-    const { miles } = homesStats();
     return `
-      <p class="homes-eyebrow">About ${(Math.round(miles / 100) * 100).toLocaleString('en-US')} miles between them, as the crow flies</p>
       <div class="homes-grid">
         <div class="homes-map" id="homes-map">${mapSvg()}</div>
-        <ol class="homes-list">
-          ${homes.map((h, i) => `
+        <ul class="homes-list">
+          ${cities.map((h, i) => `
             <li><button type="button" class="home-row" data-i="${i}" aria-pressed="false">
-              <span class="home-n" aria-hidden="true">${i + 1}</span>
               <span class="home-name">${escapeHtml(h.name)}</span>
-              <span class="home-years">${escapeHtml(years(h))}</span>
+              <span class="home-region">${escapeHtml(h.country || h.region || '')}</span>
             </button></li>`).join('')}
-        </ol>
+        </ul>
       </div>
       <p class="homes-caption" id="homes-caption" aria-live="polite"></p>`;
   }
@@ -689,21 +666,20 @@ window.addEventListener('keydown', e => {
     function clocksLine() {
       // One clock per time zone, named for the place you were last in that zone
       const byTz = new Map();
-      homes.forEach(h => { if (h.tz) byTz.set(h.tz, h.name); });
+      cities.forEach(h => { if (h.tz) byTz.set(h.tz, h.name); });
       const parts = Array.from(byTz, ([tz, name]) => `<strong>${clock(tz)}</strong> in ${escapeHtml(name)}`);
       return parts.length ? `Right now it&rsquo;s ${parts.join(' &middot; ')}.` : '';
     }
     function paint() {
       if (sel < 0) { cap.innerHTML = clocksLine(); return; }
-      const h = homes[sel];
-      cap.innerHTML = `<strong>${escapeHtml(place(h))}</strong> &middot; ${escapeHtml(years(h))}`
+      const h = cities[sel];
+      cap.innerHTML = `<strong>${escapeHtml(place(h))}</strong>`
         + (h.tz ? ` &middot; ${clock(h.tz)} there now` : '')
         + (h.note ? `<span class="homes-note">${escapeHtml(h.note)}</span>` : '');
     }
     function mark(i) {   // i = stop index to emphasise, -1 for none
       root.classList.toggle('has-active', i >= 0);
-      root.querySelectorAll('.m-arc').forEach(a => a.classList.toggle('is-on', +a.dataset.to === i));
-      root.querySelectorAll('.m-city').forEach(c => c.classList.toggle('is-on', i >= 0 && c.dataset.city === homes[i].name));
+      root.querySelectorAll('.m-city').forEach(c => c.classList.toggle('is-on', i >= 0 && c.dataset.city === cities[i].name));
       root.querySelectorAll('.home-row').forEach(r => r.classList.toggle('is-on', +r.dataset.i === i));
     }
     root.querySelectorAll('.home-row').forEach(btn => {
@@ -722,7 +698,7 @@ window.addEventListener('keydown', e => {
     root.addEventListener('click', e => {
       const g = e.target.closest('.m-city');
       if (!g) return;
-      let i = -1; homes.forEach((h, k) => { if (h.name === g.dataset.city) i = k; });
+      const i = cities.findIndex(h => h.name === g.dataset.city);
       const row = root.querySelector(`.home-row[data-i="${i}"]`);
       if (row) row.click();
     });

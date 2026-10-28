@@ -549,8 +549,6 @@ footer a { display: inline-block; padding: 0.3rem 0.15rem; }
 .homes.is-open .homes-inner { overflow: visible; }
 .homes-inner > :first-child { margin-top: 1.1rem; }
 @media (prefers-color-scheme: dark) { .homes { --sea: var(--bg); --earth: var(--border); } }
-.homes-eyebrow { margin: 0 0 0.7rem; }
-#modal-body .story p.homes-eyebrow { font-family: var(--font-body); font-size: 0.82rem; letter-spacing: 0.02em; margin: 0 0 0.7rem; line-height: 1.4; max-width: none; color: var(--muted); }
 .homes-grid { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); gap: 1.1rem; align-items: start; }
 .homes-map { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--sea); min-height: 120px; }
 .homes-svg { display: block; width: 100%; height: auto; }
@@ -559,14 +557,9 @@ footer a { display: inline-block; padding: 0.3rem 0.15rem; }
 .m-lived { fill: var(--accent-weak); }
 .m-borders { fill: none; stroke: var(--sea); stroke-width: 0.8; stroke-linejoin: round; }
 .m-grat line { stroke: var(--text); stroke-opacity: 0.09; stroke-width: 0.6; stroke-dasharray: 2 3; }
-.m-arc {
-  fill: none; stroke: var(--accent); stroke-width: 1.7; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0;
-  transition: opacity 160ms ease, stroke-width 160ms ease;
-}
-.homes.is-open .m-arc { animation: arcDraw 900ms cubic-bezier(.3,.6,.3,1) calc(var(--i, 0) * 340ms + 350ms) backwards; }
-@keyframes arcDraw { from { stroke-dashoffset: 1; } }
-.has-active .m-arc { opacity: 0.22; }
-.has-active .m-arc.is-on { opacity: 1; stroke-width: 2.6; }
+.has-active .m-city:not(.is-on) { opacity: 0.45; }
+.m-city { transition: opacity 160ms ease; }
+.m-hit { fill: transparent; }
 .m-dot { fill: var(--accent); stroke: var(--sea); stroke-width: 1.5; }
 .m-ring { fill: none; stroke: var(--accent); stroke-opacity: 0.35; stroke-width: 1; transform-box: fill-box; transform-origin: center; transition: stroke-opacity 160ms ease, stroke-width 160ms ease; }
 .m-city { cursor: pointer; }
@@ -577,18 +570,16 @@ footer a { display: inline-block; padding: 0.3rem 0.15rem; }
   font-family: var(--font-display); font-size: 11.5px; font-weight: 600; fill: var(--text); letter-spacing: -0.005em;
   paint-order: stroke; stroke: var(--sea); stroke-width: 3px; stroke-linejoin: round; pointer-events: none;
 }
-.m-nums { font-family: var(--font-body); font-size: 8px; font-weight: 600; fill: var(--accent); }
 
 .homes-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
 .homes-list li { margin: 0; border-bottom: 1px solid var(--border); }
 .home-row {
   appearance: none; border: 0; background: none; font: inherit; color: var(--text); cursor: pointer; width: 100%; text-align: left;
-  display: grid; grid-template-columns: 1.3rem 1fr auto; align-items: baseline; column-gap: 0.45rem; padding: 0.42rem 0.3rem; min-height: 34px;
+  display: grid; grid-template-columns: 1fr auto; align-items: baseline; column-gap: 0.6rem; padding: 0.5rem 0.4rem; min-height: 40px;
   border-radius: 4px; transition: background-color 140ms ease, color 140ms ease;
 }
-.home-n { font-size: 0.72rem; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; }
 .home-name { font-family: var(--font-display); font-size: 1.02rem; font-weight: 600; line-height: 1.25; }
-.home-years { font-size: 0.76rem; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.home-region { font-size: 0.76rem; color: var(--muted); white-space: nowrap; }
 .home-row:hover, .home-row.is-on, .home-row[aria-pressed="true"] { background: var(--accent-weak); }
 .home-row:focus-visible { outline-offset: -2px; }
 #modal-body .story p.homes-caption {
@@ -599,10 +590,9 @@ footer a { display: inline-block; padding: 0.3rem 0.15rem; }
 @media (max-width: 640px) {
   .homes-grid { grid-template-columns: 1fr; gap: 0.7rem; }
   .homes-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: 0.9rem; }
-  .home-row { grid-template-columns: 1.1rem 1fr; padding: 0.35rem 0.2rem; }
-  .home-years { grid-column: 2; font-size: 0.72rem; }
+  .home-row { grid-template-columns: 1fr; padding: 0.4rem 0.2rem; }
+  .home-region { font-size: 0.72rem; }
   .m-label { font-size: 15px; stroke-width: 4px; }
-  .m-nums { font-size: 11px; }
 }
 
 .tale { display: flow-root; }

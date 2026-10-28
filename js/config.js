@@ -22,11 +22,11 @@ window.SITE_CONFIG = {
   // Add `note` (one line) to any stop to show it when that stop is tapped. A stop with no `to` shows just `from`.
   homes: [
     { name: "Bogot\u00e1",   region: "Colombia",            country: "Colombia", lat: 4.7110,  lon: -74.0721, tz: "America/Bogota",    from: "2004",      to: "2014", anchor: "b" },
-    { name: "Rockville", region: "Maryland, USA",       country: "USA",      lat: 39.0840, lon: -77.1528, tz: "America/New_York",  from: "2014",      to: "2018", anchor: "r" },
+    { name: "Maryland",  region: "USA",                 country: "USA",      lat: 39.0840, lon: -77.1528, tz: "America/New_York",  from: "2014",      to: "2018", anchor: "r" },
     { name: "Bogot\u00e1",   region: "Colombia",            country: "Colombia", lat: 4.7110,  lon: -74.0721, tz: "America/Bogota",    from: "2018",      to: "2023", anchor: "b" },
-    { name: "Davidson",  region: "North Carolina, USA", country: "USA",      lat: 35.4993, lon: -80.8487, tz: "America/New_York",  from: "2023",      to: "2025", anchor: "l" },
+    { name: "North Carolina", region: "USA", country: "USA",      lat: 35.4993, lon: -80.8487, tz: "America/New_York",  from: "2023",      to: "2025", anchor: "b" },
     { name: "Budapest",  region: "Hungary",             country: "Hungary",  lat: 47.4979, lon: 19.0402,  tz: "Europe/Budapest",   from: "Fall 2025", to: "",     anchor: "t" },
-    { name: "Davidson",  region: "North Carolina, USA", country: "USA",      lat: 35.4993, lon: -80.8487, tz: "America/New_York",  from: "2026",      to: "now",  anchor: "l" }
+    { name: "North Carolina", region: "USA", country: "USA",      lat: 35.4993, lon: -80.8487, tz: "America/New_York",  from: "2026",      to: "now",  anchor: "b" }
   ],
 
   // "Behind the portfolio" shelf. Books stand as spines on the top shelf, albums sit as record sleeves below.
